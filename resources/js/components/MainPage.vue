@@ -8,7 +8,7 @@
                         <h5>Возможность быстро найти питомцу дом</h5>
                     </center>
                 </div>
-                
+
             </div>
 
             <div class="col-md-12">
@@ -20,7 +20,7 @@
                         <div class="col-sm-3 itemMenu"><search-comp :searchShow="true"></search-comp></div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div id="categoryHeader" class="col-md-12">
@@ -41,6 +41,10 @@
             <h1 id="sliderPremiumTitle">Premium объявления</h1>
             <slider-comp></slider-comp>
         </div>
+
+        <div class="row board">
+            <board-comp></board-comp>
+        </div>
     </div>
 </template>
 
@@ -51,7 +55,7 @@
             return{
                 country: [
                     {name: 'russia'},
-                    {name: 'USA'},  
+                    {name: 'USA'},
                 ],
                 categories: [
                     {name: 'Кошки', img: '../images/cat.svg'},
@@ -66,6 +70,11 @@
 </script>
 
 <style>
+    .board{
+        width: 100%;
+        margin: 0;
+    }
+
     #contentHeader{
         min-height: 700px;
         margin-left: 0;
@@ -95,7 +104,7 @@
     }
 
     .category:hover{
-        background-color: #FF6200; 
+        background-color: #FF6200;
     }
 
     .sliderPremium{
@@ -109,4 +118,6 @@
         margin-bottom: 5%;
         font-size: 40px;
     }
+
+
 </style>

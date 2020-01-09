@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -37,16 +38,16 @@
             width: 100%;
             color: white;
             background: url('./images/backgroundimg.png') repeat-y;
-            background-attachment: fixed;   
+            background-attachment: fixed;
             background-color: rgba(0,0,0,.8);
-            background-blend-mode: darken;    
-            
+            background-blend-mode: darken;
+
         }
     </style>
 </head>
 <body>
-    <div id="app" > 
-        
+    <div id="app" >
+
         <header-comp></header-comp>
 
         <main class="py-4">

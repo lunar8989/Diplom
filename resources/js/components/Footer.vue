@@ -20,8 +20,8 @@
                 <div id="socialLink" class="col-sm-6">
                     <i v-for="social in socials" v-bind:key="social.id" class="col"></i>
                 </div>
-                <div class="contant col-sm-2">
-                    <a>Контакты</a>
+                <div class="contact col-sm-2">
+                    <h6>Контакты: <a href="tel: +79507907366">+7(950)790-73-66</a></h6>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 ],
                 socials: [
                     {class: ''}
-                ]           
+                ]
             }
         },
     }
@@ -56,5 +56,9 @@
     #footer{
         background-color: #333333;
         color: white;
+    }
+
+    .contact{
+        padding: 0;
     }
 </style>

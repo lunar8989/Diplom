@@ -9,6 +9,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+Vue.use(VueAxios, axios);
+
+
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,8 +26,8 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-comp', require('./components/Header.vue').default);
@@ -29,6 +37,11 @@ Vue.component('slider-comp', require('./components/Slider.vue').default);
 Vue.component('main-comp', require('./components/MainPage.vue').default);
 Vue.component('board-comp', require('./components/Board.vue').default);
 Vue.component('footer-comp', require('./components/Footer.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -40,7 +53,8 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            
+
         }
     },
+    
 });

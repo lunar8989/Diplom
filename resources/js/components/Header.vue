@@ -7,7 +7,7 @@
                         <a href="/"><img id="headerLogo" src="../../img/logo.png" alt=""></a>
                     </div>
 
-                    <div id="searchHeader" class="col-md-4">
+                    <div id="searchHeader" class="col-md-4">  
                         <search :searchShow="false"></search>
                         <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
                             <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
