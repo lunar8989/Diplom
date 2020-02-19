@@ -18,7 +18,6 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('descrption');
-            $table->bigInteger('autor');
             $table->decimal('price');
             $table->string('img');
         });

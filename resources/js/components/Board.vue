@@ -81,15 +81,15 @@ export default {
 	},
     // computed:{
     //     collection(){
-    //         return this.paginate(this.data);
+    //         return this.paginate(this.articles);
     //     }
     // },
     // methods: {
     //     setPage(p){
-    //         this.pagination = this.paginator(this.data.length, p);
+    //         this.pagination = this.paginator(this.articles.length, p);
     //     },
-    //     paginate(data){
-    //         return _.slice(data, this.pagination.startIndex, this.pagination.endIndex + 1);
+    //     paginate(articles){
+    //         return _.slice(articles, this.pagination.startIndex, this.pagination.endIndex + 1);
     //     },
     //     paginator(totalItems, currentPage){
     //         var startIndex = (currentPage - 1) * this.perPage,
@@ -106,10 +106,10 @@ export default {
 
     // created() {
     //     this.setPage(1);
-    //     // axios.get('/articles?page' = this.p)  
-    //     //     .then(response => {
-    //     //         this.data = response.data;
-    //     //     });
+    //     axios.get('/articles?page' = this.p)  
+    //         .then(response => {
+    //             this.articles = response.data;
+    //         });
     // }
 }
 </script>
@@ -139,7 +139,7 @@ export default {
 
     #articleBack{
         box-shadow: 0 0 7px;
-        height: 50vh;
+        min-height: 40vh;
         margin-top: 30px;
     }
 
@@ -179,6 +179,7 @@ export default {
         background: #FF6200;
         border-radius: 50%;
         padding: 2.5%;
+        margin-top: 3em;
         margin-left: 6%;
     }
 

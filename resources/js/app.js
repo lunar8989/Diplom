@@ -8,14 +8,21 @@ require('./bootstrap');
 
 
 window.Vue = require('vue');
+// var VueResource = require('vue-resource');
 
+
+// Vue.use(VueResource);
+
+
+import 'es6-promise/auto';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+// import Index from './MainPage';
+
+
+
 
 Vue.use(VueAxios, axios);
-
-
-
 
 
 /**
@@ -29,7 +36,7 @@ Vue.use(VueAxios, axios);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-comp', require('./components/Header.vue').default);
 Vue.component('search-comp', require('./components/Search.vue').default);
 Vue.component('select-comp', require('./components/Select.vue').default);
@@ -37,10 +44,9 @@ Vue.component('slider-comp', require('./components/Slider.vue').default);
 Vue.component('main-comp', require('./components/MainPage.vue').default);
 Vue.component('board-comp', require('./components/Board.vue').default);
 Vue.component('footer-comp', require('./components/Footer.vue').default);
-Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('add-article', require('./components/AddArticle.vue').default);
 
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

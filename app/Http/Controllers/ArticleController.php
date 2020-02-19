@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -10,5 +12,34 @@ class ArticleController extends Controller
     {
         $data = Article::paginate(12);
         return response()->json($data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $user = $request->user;
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
+
+        if($validator->passes()) {
+            $article = Article::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'photo' => $request->photo,
+                'price' => $request->price,
+                'category' => $request->category,
+            ]);
+        }
+
+        $article->user()->associate($user);
+        $article->save();
     }
 }

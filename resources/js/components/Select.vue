@@ -1,16 +1,17 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
-            <select class="mySelect col-md-12">
-                <option class="myOption" v-for="item in options" v-bind:key="item.id" :value=item.value>{{ item.name }}</option>
+        <div class="row form-group">
+            <select class="mySelect col-md-12 custom-select" required>
+                <option class="myOption" v-for="item in data" v-bind:key="item.id" :value=item.value>{{ item.name }}</option>
             </select>
+            <div class="invalid-feedback">Поле не выбрано.</div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['options'],
+        props: ['data'],
         data() {
             return{
 

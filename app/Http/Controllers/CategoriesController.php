@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\categories;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class CategoriesController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $data = categories::find();
+        return response()->json($data);
     }
 
     /**

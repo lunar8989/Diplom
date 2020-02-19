@@ -13,13 +13,13 @@
 
             <div class="col-md-12">
                 <div id="settingsBarHeader" class="container ">
-                    <div class="row no-gutters" style="padding: 1.8%">
-                        <div class="col-sm-3 itemMenu"><select-comp :options="categories"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><select-comp :options="country"></select-comp></div>
+                    <div class="row no-gutters" style="padding: 2%">
+                        <div class="col-sm-3 itemMenu"><select-comp :data="categories"></select-comp></div>
+                        <div class="col-sm-3 itemMenu"><select-comp :data="country"></select-comp></div>
                         <div class="col-sm-3 itemMenu"><select-comp></select-comp></div>
                         <div class="col-sm-3 itemMenu"><search-comp :searchShow="true"></search-comp></div>
                     </div>
-                </div>
+                </div> 
 
             </div>
 
@@ -51,6 +51,7 @@
 <script>
 
     export default {
+        
         data(){
             return{
                 country: [
@@ -119,5 +120,7 @@
         font-size: 40px;
     }
 
-
+    .itemMenu{
+        height: 50px;
+    }
 </style>

@@ -12,6 +12,14 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'autor', 'price', 'category', 'img'
+        'name', 'description', 'price', 'category', 'img'
     ];
+
+    public function categories(){
+        return $this->belongsTo('App\categories');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

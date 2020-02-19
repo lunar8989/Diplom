@@ -17,8 +17,8 @@
                     <div id="headerMenu" class="col-md-7">
                         <div id="munuPos">
                             <li class="customBtn"><a href="/">главная</a></li>
-                            <li class="customBtn"><a href="#" data-toggle="modal" data-target="#myModalAuth">вход</a></li>
-                            <li class="addArticle"><a href="">добавить объявление</a></li>
+                            <li class="customBtn"><a v-if="login == false" href="#" data-toggle="modal" data-target="#myModalAuth">вход</a><a v-else href="/logaut">выход</a></li>
+                            <li class="addArticle"><a id="addArticle" @click='checkLogin'>добавить объявление</a></li>
                         </div>                      
                     </div>
 
@@ -34,6 +34,7 @@
     import ModalHeaderForm from './ModalHeaderForm.vue';
 
     export default {
+        
         components: {
             search,
             ModalHeaderForm,
@@ -41,14 +42,29 @@
         data(){
             return {
                 formStatus: '',
+                login: true,
             }
         },
         methods: {
             showsearch: function() {
                 document.getElementById('searchBox').style.display = "";
                 document.getElementById('btnShowSearch').style.display = "none";
+            },
+
+            checkLogin: function(){
+                if(this.login != true){
+                    document.getElementById('addArticle').href = '#';
+                    alert('Вы не авторизованы.');
+                }else{
+                    document.getElementById('addArticle').href = '/addarticle';
+                }
             }
         },
+        mounted(){
+            axios.get('/checklogin').then(response => {
+					this.login = response;
+                });
+        }
     }
 </script>
 

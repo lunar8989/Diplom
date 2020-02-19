@@ -37,16 +37,20 @@
         body{
             width: 100%;
             color: white;
-            background: url('./images/backgroundimg.png') repeat-y;
+            background: url('./images/backgroundimg.png') repeat-y center center fixed;
+            background-size: cover;
             background-attachment: fixed;
             background-color: rgba(0,0,0,.8);
             background-blend-mode: darken;
+        }
 
+        .py-4{
+            min-height: 84.6vh;
         }
     </style>
 </head>
 <body>
-    <div id="app" >
+    <div id="app">
 
         <header-comp></header-comp>
 
