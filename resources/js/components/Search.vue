@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div id="search" class="row">
             <div id="searchBox" class="col-md-12" v-show="searchShow">
-                <input class="col-md-10"  type="text" name="search" id="searchInput" placeholder="Поиск..">
+                <input class="col-md-10 searchInput"  type="text" name="search" placeholder="Поиск..">
                 <button @click="searching" class="col-md-2" id="btnSearch" type="button">  
                     <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
                 </button> 
@@ -35,14 +35,14 @@
         padding: 0;
     }
 
-    #searchInput{
+    .searchInput{
         height: 50px;
         float: left;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
     }
 
-    #searchInput:focus{
+    .searchInput:focus{
         outline: none;
         border-bottom: 2px solid #FF6200;
     }

@@ -80,8 +80,8 @@
         min-height: 700px;
         margin-left: 0;
         margin-right: 0;
-        margin-top: 20em;
-        margin-bottom: 15em;
+        margin-top: 5vh;
+        margin-bottom: 15vh;
     }
 
     #headerTitle{

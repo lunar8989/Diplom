@@ -7,26 +7,26 @@
 
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <label for="validationTooltip01">Название</label>
-                        <input type="text" class="form-control inputarticle" id="validationTooltip01" placeholder="Название" required>
+                        <label>Название</label>
+                        <input type="text" class="form-control inputarticle" placeholder="Название" required>
                         <div class="invalid-feedback">
                             Пожалуйста, укажите название объявления.
                         </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="validationTooltip02">Описание</label>
-                        <input type="text" class="form-control inputarticle" id="validationTooltip02" placeholder="Описание" required>
+                        <label>Описание</label>
+                        <input type="text" class="form-control inputarticle" placeholder="Описание" required>
                         <div class="invalid-feedback">
                             Пожалуйста, укажите описание объявления.
                         </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="validationTooltip03">Изображение</label>
+                        <label>Изображение</label>
                         <div class="custom-file filearticle">
-                            <input type="file" class="custom-file-input inputarticle" name="photo" id="validatedCustomFile" accept="image/jpeg,image/png" multiple>
-                            <label class="custom-file-label inputarticle" for="validatedCustomFile">Выберите файл</label>
+                            <input type="file" class="custom-file-input inputarticle" name="photo" accept="image/jpeg,image/png" multiple>
+                            <label class="custom-file-label inputarticle">Выберите файл</label>
                         </div>
                     </div>
                 </div>
@@ -35,11 +35,11 @@
 
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationTooltip03">Стоимость</label>
-                        <input type="number" class="form-control inputarticle" id="validationTooltip03" placeholder="Стоимость" >
+                        <label>Стоимость</label>
+                        <input type="number" class="form-control inputarticle" placeholder="Стоимость" >
                     </div>                    
                     <div class="col-md-6 mb-3">
-                        <label for="validationTooltip04">Категория</label>
+                        <label>Категория</label>
                         <select-comp :data="category.data"></select-comp>
                         <div class="invalid-tooltip">
                             Пожалуйста выберите категорию объявления.
@@ -97,7 +97,7 @@
     }
 
     #addArticle{
-        margin-top: 25%;
+        margin-top: 5vh;
         padding: 0 10%;
     }
 

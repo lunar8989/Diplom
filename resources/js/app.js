@@ -7,24 +7,33 @@
 require('./bootstrap');
 
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 // var VueResource = require('vue-resource');
 
 
 // Vue.use(VueResource);
 
 
-import 'es6-promise/auto';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-// import Index from './MainPage';
+import 'es6-promise/auto'
+import axios from 'axios'
+import Vue from 'vue'
+import VueAuth from '@websanova/vue-auth'
+import VueAxios from 'vue-axios'
+import VueRouter from 'vue-router'
+import auth from './auth'
+import router from './router'
 
+window.Vue = Vue;
 
+Vue.router = router;
+Vue.use(VueRouter);
 
 
 Vue.use(VueAxios, axios);
+// axios.defaults.baseURL = `${process.env.MIX_APP_URL}`;
 
 
+Vue.use(VueAuth, auth);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -45,6 +54,8 @@ Vue.component('main-comp', require('./components/MainPage.vue').default);
 Vue.component('board-comp', require('./components/Board.vue').default);
 Vue.component('footer-comp', require('./components/Footer.vue').default);
 Vue.component('add-article', require('./components/AddArticle.vue').default);
+Vue.component('login-comp', require('./components/Login').default);
+Vue.component('register-comp', require('./components/Register').default);
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
@@ -57,10 +68,10 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({
     el: '#app',
+    router,
     data() {
         return {
 
         }
     },
-    
 });

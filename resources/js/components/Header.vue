@@ -17,7 +17,7 @@
                     <div id="headerMenu" class="col-md-7">
                         <div id="munuPos">
                             <li class="customBtn"><a href="/">главная</a></li>
-                            <li class="customBtn"><a v-if="login == false" href="#" data-toggle="modal" data-target="#myModalAuth">вход</a><a v-else href="/logaut">выход</a></li>
+                            <li class="customBtn"><a v-if="login == false" href="/login">вход</a><a v-else href="/logaut">выход</a></li>
                             <li class="addArticle"><a id="addArticle" @click='checkLogin'>добавить объявление</a></li>
                         </div>                      
                     </div>
@@ -58,13 +58,14 @@
                 }else{
                     document.getElementById('addArticle').href = '/addarticle';
                 }
-            }
+            },
+
         },
-        mounted(){
-            axios.get('/checklogin').then(response => {
-					this.login = response;
-                });
-        }
+        // mounted(){
+        //     axios.get('/checklogin').then(response => {
+		// 			this.login = response;
+        //         });
+        // }
     }
 </script>
 
