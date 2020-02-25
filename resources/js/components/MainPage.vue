@@ -44,6 +44,10 @@
         <div class="row board">
             <board-comp></board-comp>
         </div>
+        
+        <div id="map">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A71d547e5e23e6d82da9edea16125cf96b4e3aa6966e5f35e09140551fba20727&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
     </div>
 </template>
 
