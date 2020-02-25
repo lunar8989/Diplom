@@ -2,24 +2,18 @@
     <div class="container">
         <div class="row" id="addArticle">
             <form class="needs-validation formarticle col" action="/createarticle" enctype="multipart/form-data" method="post" novalidate>
-                <label for="" class="col-sm-12 labelArticleForm">Добавить новое объявление</label>
+                <label class="col-sm-12 labelArticleForm">Добавить новое объявление</label>
                 <hr class="hrArticleForm">
 
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <label>Название</label>
                         <input type="text" class="form-control inputarticle" placeholder="Название" required>
-                        <div class="invalid-feedback">
-                            Пожалуйста, укажите название объявления.
-                        </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label>Описание</label>
                         <input type="text" class="form-control inputarticle" placeholder="Описание" required>
-                        <div class="invalid-feedback">
-                            Пожалуйста, укажите описание объявления.
-                        </div>
                     </div>
 
                     <div class="col-md-4 mb-3">

@@ -29,10 +29,15 @@ Route::get('/register', function () {
 	return view('register');
 });
 
+Route::get('/user/dashboard', function () {
+	return view('user');
+});
 
-//board date
-Route::get('/articles', 'ArticleController@index');
+//get items
+Route::get('api/articles', 'ArticleController@index');
 
-
+Route::get('/{any?}', function (){
+	return view('index');
+})->where('any', '^(?!api\/)[\/\w\.-]*');
 // Route::get('/checklogin', 'HomeController@checklogin');
 

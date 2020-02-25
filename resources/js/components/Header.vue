@@ -42,7 +42,7 @@
         data(){
             return {
                 formStatus: '',
-                login: true,
+                login: false,
             }
         },
         methods: {

@@ -2,6 +2,6 @@
 
 @section('content')
     
-    <main-comp></main-comp>
+    <dashboard-comp></dashboard-comp>
 
 @endsection

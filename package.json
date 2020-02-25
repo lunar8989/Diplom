@@ -21,15 +21,16 @@
         "sass": "^1.20.1",
         "sass-loader": "7.*",
         "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "vue-axios": "^2.1.5",
+        "vue-loader": "^15.9.0",
+        "vue-router": "^3.1.5",
+        "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
         "@websanova/vue-auth": "^2.21.16-beta",
         "es6-promise": "^4.2.8",
         "laravel-vue-pagination": "^2.3.1",
         "swiper": "^5.2.1",
-        "vue-axios": "^2.1.5",
-        "vue-router": "^3.1.5",
         "vuejs-paginator": "^2.0.2",
         "vuejs-paginator-axios": "^2.0.1"
     }

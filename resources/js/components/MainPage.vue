@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <div id="contentHeader" class="row">
             <div id="headerTitle" class="container">
+                
                 <div class="row">
                     <center class="col">
                         <h1 style="font-size: 60px">Дай лапу</h1>
                         <h5>Возможность быстро найти питомцу дом</h5>
                     </center>
                 </div>
-
             </div>
 
             <div class="col-md-12">
@@ -19,8 +19,7 @@
                         <div class="col-sm-3 itemMenu"><select-comp></select-comp></div>
                         <div class="col-sm-3 itemMenu"><search-comp :searchShow="true"></search-comp></div>
                     </div>
-                </div> 
-
+                </div>
             </div>
 
             <div id="categoryHeader" class="col-md-12">

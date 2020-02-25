@@ -30,8 +30,7 @@ Vue.use(VueRouter);
 
 
 Vue.use(VueAxios, axios);
-// axios.defaults.baseURL = `${process.env.MIX_APP_URL}`;
-
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 Vue.use(VueAuth, auth);
 /**
@@ -45,7 +44,6 @@ Vue.use(VueAuth, auth);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-comp', require('./components/Header.vue').default);
 Vue.component('search-comp', require('./components/Search.vue').default);
 Vue.component('select-comp', require('./components/Select.vue').default);
@@ -56,6 +54,7 @@ Vue.component('footer-comp', require('./components/Footer.vue').default);
 Vue.component('add-article', require('./components/AddArticle.vue').default);
 Vue.component('login-comp', require('./components/Login').default);
 Vue.component('register-comp', require('./components/Register').default);
+Vue.component('dashboard-comp', require('./components/User/Dashboard').default);
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
@@ -68,10 +67,5 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({
     el: '#app',
-    router,
-    data() {
-        return {
-
-        }
-    },
+    router
 });
