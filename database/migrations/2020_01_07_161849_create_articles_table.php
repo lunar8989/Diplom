@@ -17,9 +17,12 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('descrption');
+            $table->text('description');
+            $table->string('category');
             $table->decimal('price');
             $table->string('img');
+            $table->date('date');
+            $table->string('author');
         });
     }
 

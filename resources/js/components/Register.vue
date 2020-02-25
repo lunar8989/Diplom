@@ -55,7 +55,7 @@
         name: "register",
         data() {
             return {
-                
+
                 name: '',
                 email: '',
                 phone: '',
@@ -65,7 +65,7 @@
                 error: '',
                 errors: {},
                 success: false
-                
+
             }
         },
         methods: {
@@ -73,17 +73,15 @@
                 var app = this;
                 this.$auth.register({
                     data: {
-
                         name: app.name,
                         email: app.email,
                         phone: app.phone,
                         password: app.password,
                         password_confirmation: app.password_confirmation
-
                     },
                     success: function () {
                         app.success = true;
-                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}});
+                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
                     },
                     error: function (res) {
                         console.log(res.response.data.errors);
@@ -91,10 +89,10 @@
                         app.error = res.response.data.error;
                         app.errors = res.response.data.errors || {}
                     }
-                    
+
                 })
-                
-                
+
+
             },
         }
     }
@@ -105,7 +103,7 @@
         background-color: #FF6200 !important;
         font-size: 20px;
     }
-    
+
     .card-header{
         border-bottom: 1px solid white;
     }

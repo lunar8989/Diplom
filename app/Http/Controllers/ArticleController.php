@@ -29,15 +29,17 @@ class ArticleController extends Controller
             'category' => 'required',
         ]);
 
-        if($validator->passes()) {
-            $article = Article::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'photo' => $request->photo,
-                'price' => $request->price,
-                'category' => $request->category,
-            ]);
+        if($validator->fails()) {
+            return response()->json("error", "401");
         }
+
+        $article = Article::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'photo' => $request->img,
+            'price' => $request->price,
+            'category' => $request->category,
+        ]);
 
         $article->user()->associate($user);
         $article->save();

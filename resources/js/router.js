@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router'
 // Pages
 import MainPage from './components/MainPage'
-// import About from './components/About'
 import Register from './components/Register'
 import Login from './components/Login'
 import Dashboard from './components/User/Dashboard'
@@ -17,14 +16,6 @@ const routes = [
             auth: undefined
         }
     },
-    // {
-    //     path: '/about',
-    //     name: 'about',
-    //     component: About,
-    //     meta: {
-    //         auth: undefined
-    //     }
-    // },
     {
         path: '/register',
         name: 'register',

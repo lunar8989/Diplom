@@ -12,7 +12,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'price', 'category', 'img'
+        'name', 'description', 'price', 'category', 'img', 'date', 'author'
     ];
 
     public function categories(){

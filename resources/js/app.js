@@ -6,14 +6,6 @@
 
 require('./bootstrap');
 
-
-// window.Vue = require('vue');
-// var VueResource = require('vue-resource');
-
-
-// Vue.use(VueResource);
-
-
 import 'es6-promise/auto'
 import axios from 'axios'
 import Vue from 'vue'
@@ -67,5 +59,5 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
 });

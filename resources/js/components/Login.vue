@@ -1,15 +1,10 @@
 <template>
-<!--    <form ref="auth" method="post" class="modalForm" id="formAuth">-->
-<!--        <input type="text" name="email"  placeholder="Почта"><br>-->
-<!--        <input type="password"  name="password" placeholder="Пароль"><br>-->
-<!--        <input @click="login" type="submit" name="submit" value="Войти" class="runBtn">-->
-<!--    </form>-->
     <div class="container" style="margin-top: 5vh">
         <div class="row justify-content-md-center">
             <div class="col-6">
                 <div class="card card-default" style="background-color: #1F7B67; font-size: 20px;">
                     <div class="card-header" style="text-align: center; font-size: 35px;">Авторизация</div>
-                    
+
                     <div class="card-body">
                         <div class="alert alert-danger" v-if="has_error && !success">
                             <p v-if="error == 'login_error'">Validation Errors.</p>
@@ -52,9 +47,9 @@
         methods: {
             login() {
                 // get the redirect object
-                var redirect = this.$auth.redirect();
                 var app = this;
-                
+                var redirect = this.$auth.redirect();
+
                 this.$auth.login({
                     data: {
                         email: app.email,
@@ -66,14 +61,15 @@
                         const redirectTo = 'dashboard';
                         this.$router.push({name: redirectTo})
                     },
-                    error: function() {
+                    error: function(res) {
                         app.has_error = true;
                         app.error = res.response.data.error
                     },
-                    
+                    rememberMe: true,
+                    fetchUser: true
                 })
             },
-            
+
         }
     }
 </script>
@@ -88,27 +84,26 @@
 .card-header{
     border-bottom: 1px solid white;
 }
-    #link{
-        background-color: #FF6200;
-        height: 46px;
-        font-size: 20px;
-        text-decoration: none;
-        color: white;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        border: 1px solid transparent;
-        padding: 0.375rem 0.75rem;
-        line-height: 1.6;
-        border-radius: 0.25rem;
-        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        float: right;
-    }
-    
+#link{
+    background-color: #FF6200;
+    height: 46px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.6;
+    border-radius: 0.25rem;
+    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    float: right;
+}
 </style>

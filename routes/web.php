@@ -39,5 +39,6 @@ Route::get('api/articles', 'ArticleController@index');
 Route::get('/{any?}', function (){
 	return view('index');
 })->where('any', '^(?!api\/)[\/\w\.-]*');
+
 // Route::get('/checklogin', 'HomeController@checklogin');
 

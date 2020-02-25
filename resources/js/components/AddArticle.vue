@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row" id="addArticle">
-            <form class="needs-validation formarticle col" action="/createarticle" enctype="multipart/form-data" method="post" novalidate>
+            <form class="formarticle col" enctype="multipart/form-data" method="post" novalidate ="" autocomplete="off" @submit.prevent="login">
                 <label class="col-sm-12 labelArticleForm">Добавить новое объявление</label>
                 <hr class="hrArticleForm">
 
@@ -31,7 +31,7 @@
                     <div class="col-md-6 mb-3">
                         <label>Стоимость</label>
                         <input type="number" class="form-control inputarticle" placeholder="Стоимость" >
-                    </div>                    
+                    </div>
                     <div class="col-md-6 mb-3">
                         <label>Категория</label>
                         <select-comp :data="category.data"></select-comp>
@@ -48,31 +48,29 @@
 
 <script>
     export default {
-        
+
         data() {
             return {
                 category: {},
+                data:{
+                    name: null,
+                    description: null,
+                    img: null,
+                    success: false,
+                    has_error: false,
+                    error: ''
+                }
             }
         },
         mounted(){
             axios.get('/category').then(response => {
 					this.category = response.data;
                 });
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    var forms = document.getElementsByClassName('needs-validation');
-                    var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                    });
-                }, false);
-                })();
+        },
+        methods:{
+            add() {
+                axios.post('/addArticle', this.data);
+            },
         }
     }
 </script>

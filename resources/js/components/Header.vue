@@ -7,7 +7,7 @@
                         <a href="/"><img id="headerLogo" src="../../img/logo.png" alt=""></a>
                     </div>
 
-                    <div id="searchHeader" class="col-md-4">  
+                    <div id="searchHeader" class="col-md-4">
                         <search :searchShow="false"></search>
                         <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
                             <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
@@ -17,13 +17,13 @@
                     <div id="headerMenu" class="col-md-7">
                         <div id="munuPos">
                             <li class="customBtn"><a href="/">главная</a></li>
-                            <li class="customBtn"><a v-if="login == false" href="/login">вход</a><a v-else href="/logaut">выход</a></li>
+                            <li class="customBtn"><a v-if="!this.$auth.check()" href="/login">вход</a><a v-if="this.$auth.check()" @click.prevent="this.$auth.logout()" style="cursor: pointer">выход</a></li>
                             <li class="addArticle"><a id="addArticle" @click='checkLogin'>добавить объявление</a></li>
-                        </div>                      
+                        </div>
                     </div>
 
-                    <ModalHeaderForm></ModalHeaderForm>
-                </div>      
+
+                </div>
             </div>
         </div>
     </div>
@@ -31,18 +31,15 @@
 
 <script>
     import search from './Search.vue';
-    import ModalHeaderForm from './ModalHeaderForm.vue';
 
     export default {
-        
+
         components: {
             search,
-            ModalHeaderForm,
         },
         data(){
             return {
                 formStatus: '',
-                login: false,
             }
         },
         methods: {
@@ -52,7 +49,7 @@
             },
 
             checkLogin: function(){
-                if(this.login != true){
+                if(!this.$auth.check()){
                     document.getElementById('addArticle').href = '#';
                     alert('Вы не авторизованы.');
                 }else{
@@ -108,22 +105,22 @@
         font-size: 22px;
         padding: 5px;
     }
-    
+
     .customBtn a{
         text-decoration: none;
         color: white;
     }
 
     .customBtn:hover{
-        background-color: gray;   
+        background-color: gray;
         text-decoration: none;
-        color: white;      
+        color: white;
     }
 
     .addArticle{
         text-align: center;
         background-color: #FF6200;
-        border-radius: 5px; 
+        border-radius: 5px;
         color: white;
         height: 50px;
         width: 250px;

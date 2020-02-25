@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div id="contentHeader" class="row">
             <div id="headerTitle" class="container">
-                
+
                 <div class="row">
                     <center class="col">
                         <h1 style="font-size: 60px">Дай лапу</h1>
@@ -50,7 +50,7 @@
 <script>
 
     export default {
-        
+
         data(){
             return{
                 country: [
@@ -80,7 +80,7 @@
         margin-left: 0;
         margin-right: 0;
         margin-top: 5vh;
-        margin-bottom: 15vh;
+        margin-bottom: 35vh;
     }
 
     #headerTitle{
