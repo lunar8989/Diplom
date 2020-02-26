@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\categories;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\all;
@@ -25,9 +26,13 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+		$validator = Validator::make($request->all(), [
+			'name' => 'required|max:255',
+			'url' => 'required',
+			'category' => 'required',
+		]);
     }
 
     /**

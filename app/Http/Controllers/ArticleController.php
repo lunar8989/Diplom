@@ -44,4 +44,24 @@ class ArticleController extends Controller
         $article->user()->associate($user);
         $article->save();
     }
+    
+    public function show($id){
+		$article = Article::where('id', $id)->first();
+	
+		if(!$article){
+			return response()->json('',404);
+		}
+		
+		return view('article', ['id' => $article->id]);
+	}
+    
+    public function find($id){
+    	$article = Article::where('id', $id)->first();
+    	
+    	if(!$article){
+    		return response()->json('',404);
+		}
+    	
+    	return response()->json($article);
+	}
 }

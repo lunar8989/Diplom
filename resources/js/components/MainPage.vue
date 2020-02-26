@@ -15,8 +15,8 @@
                 <div id="settingsBarHeader" class="container ">
                     <div class="row no-gutters" style="padding: 2%">
                         <div class="col-sm-3 itemMenu"><select-comp :data="categories"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><select-comp :data="country"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><select-comp></select-comp></div>
+                        <div class="col-sm-3 itemMenu"><select-comp :data="regions"></select-comp></div>
+                        <div class="col-sm-3 itemMenu"><select-comp :data="cities"></select-comp></div>
                         <div class="col-sm-3 itemMenu"><search-comp :searchShow="true"></search-comp></div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div v-for="cat in categories" v-bind:key="cat.id" class="col-sm-2 category">
+                        <div v-for="cat in categories.data" v-bind:key="cat.id" v-if="cat.id < 5" class="col-sm-2 category">
                             <a :href=cat.url><img :src=cat.img /></a>
                             <p>{{ cat.name }}</p>
                         </div>
@@ -37,17 +37,20 @@
         </div>
 
         <div class="sliderPremium row">
-            <h1 id="sliderPremiumTitle">Premium объявления</h1>
+            <h1 class="sliderPremiumTitle">Premium объявления</h1>
             <slider-comp></slider-comp>
         </div>
 
         <div class="row board">
+            <h1 class="sliderPremiumTitle">Последние объявления</h1>
             <board-comp></board-comp>
         </div>
         
-        <div id="map">
-            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A71d547e5e23e6d82da9edea16125cf96b4e3aa6966e5f35e09140551fba20727&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        <div class="row map">
+            <h1 class="sliderPremiumTitle">Объявления на карте</h1>
+            <map-comp></map-comp>
         </div>
+        
     </div>
 </template>
 
@@ -57,19 +60,25 @@
 
         data(){
             return{
-                country: [
-                    {name: 'russia'},
-                    {name: 'USA'},
-                ],
-                categories: [
-                    {name: 'Кошки', img: '../images/cat.svg'},
-                    {name: 'Собаки', img: '../images/dog.svg'},
-                    {name: 'Птицы', img: '../images/bird.svg'},
-                    {name: 'Магазин', img: '../images/shop.svg'},
-                    {name: 'Профиль', img: '../images/profile.svg'}
-                ]
+                cities: {},
+                regions: {},
+                categories: {},
             }
         },
+        mounted() {
+            axios.get('/cities')
+                .then(response => {
+                    this.cities = response.data;
+                });
+            axios.get('/regions')
+                .then(response => {
+                    this.regions = response.data;
+                });
+            axios.get('/categories')
+                .then(response => {
+                    this.categories = response.data;
+                });
+        }
     }
 </script>
 
@@ -77,6 +86,15 @@
     .board{
         width: 100%;
         margin: 0;
+        background-color: white;
+        margin-top: 10vh;
+        padding: 15vh;
+    }
+    
+    .map{
+        background-color: white;
+        margin-top: 5vh;
+        padding: 3%;
     }
 
     #contentHeader{
@@ -117,10 +135,11 @@
         padding: 3% 8% 3% 8%;
     }
 
-    #sliderPremiumTitle{
+    .sliderPremiumTitle{
         border-left: 4px solid #FF6200;
         margin-bottom: 5%;
         font-size: 40px;
+        color: black;
     }
 
     .itemMenu{

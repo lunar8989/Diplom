@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import search from './Search.vue';
+    import search from './Widjets/Search.vue';
 
     export default {
 

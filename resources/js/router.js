@@ -1,8 +1,8 @@
 import VueRouter from 'vue-router'
 // Pages
 import MainPage from './components/MainPage'
-import Register from './components/Register'
-import Login from './components/Login'
+import Register from './components/Auth/Register'
+import Login from './components/Auth/Login'
 import Dashboard from './components/User/Dashboard'
 // import AdminDashboard from './components/admin/Dashboard'
 

@@ -21,21 +21,6 @@ use Illuminate\Http\Request;
 Route::post('auth/register', 'Auth\RegisterController@register');
 
 //auth
-//Route::group([
-//
-//'middleware' => 'api',
-//	'prefix' => 'auth'
-//
-//], function ($router) {
-//	Route::post('login', 'AuthController@login');
-//	Route::post('logout', 'AuthController@logout');
-//	Route::post('refresh', 'AuthController@refresh');
-//	Route::post('me', 'AuthController@me');
-//    Route::get('user', 'AuthController@user');
-//	Route::get('user', function (){
-//	    return view('user');
-//    });
-//});
 
 Route::prefix('auth')->group(function () {
     // Below mention routes are public, user can access those without any restriction.
@@ -55,4 +40,10 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::post('addSArticle', 'ArticleController@create');
+Route::post('addArticle', 'ArticleController@create');
+
+Route::get('cities', 'CityController@show');
+Route::get('region', 'RegionController@show');
+Route::get('categories', 'CateroryController@show');
+
+Route::get('article/{id}', 'ArticleController@find');

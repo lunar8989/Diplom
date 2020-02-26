@@ -44,31 +44,17 @@ export default {
             }
 
 			axios.get('/articles?page=' + page)
-				.then(response => {
-					this.articles = response.data;
-			    });
+                .then(response => {
+                    this.articles = response.data;
+                });
 		}
 	},
 }
 </script>
 
 <style scoped>
-    #paginator{
-        margin: 0 auto;
-    }
-
-    .paginator{
-        margin-top: 20px;
-    }
-
-    .btn{
-        background-color: #FF6200;
-    }
-
     #boardMain{
         margin: 0;
-        margin-top: 10vh;
-        padding: 15vh;
         text-align: center;
         min-height: 100vh;
         min-width: 100%;

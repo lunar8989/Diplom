@@ -37,16 +37,18 @@ Vue.use(VueAuth, auth);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('header-comp', require('./components/Header.vue').default);
-Vue.component('search-comp', require('./components/Search.vue').default);
-Vue.component('select-comp', require('./components/Select.vue').default);
-Vue.component('slider-comp', require('./components/Slider.vue').default);
+Vue.component('search-comp', require('./components/Widjets/Search.vue').default);
+Vue.component('select-comp', require('./components/Widjets/Select.vue').default);
+Vue.component('slider-comp', require('./components/Widjets/Slider.vue').default);
 Vue.component('main-comp', require('./components/MainPage.vue').default);
-Vue.component('board-comp', require('./components/Board.vue').default);
+Vue.component('board-comp', require('./components/Articles/Board.vue').default);
 Vue.component('footer-comp', require('./components/Footer.vue').default);
-Vue.component('add-article', require('./components/AddArticle.vue').default);
-Vue.component('login-comp', require('./components/Login').default);
-Vue.component('register-comp', require('./components/Register').default);
+Vue.component('add-article', require('./components/Articles/AddArticle.vue').default);
+Vue.component('login-comp', require('./components/Auth/Login').default);
+Vue.component('register-comp', require('./components/Auth/Register').default);
 Vue.component('dashboard-comp', require('./components/User/Dashboard').default);
+Vue.component('article-comp', require('./components/Articles/ArticlePage').default);
+Vue.component('map-comp', require('./components/Widjets/Map').default);
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 

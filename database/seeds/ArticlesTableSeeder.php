@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Faker\Generator as Faker;
 
 class ArticlesTableSeeder extends Seeder
 {
@@ -12,7 +9,6 @@ class ArticlesTableSeeder extends Seeder
      *
      * @return void
      */
-
     public function run()
     {
         factory(App\Article::class, 50)->create();
