@@ -4,22 +4,24 @@
             <div v-for="article in articles.data" v-bind:key="article.id" class="article col-sm-3" >
                 <div id="articleBack">
                     <div class="articleImg">
-                        <a :href=article.url><img :src=article.img alt=""></a>
+                        <img :src=article.img>
                         <h5><strong>{{ article.date }}</strong></h5>
                         <div id="cat"><a href="#"><img src='/images/shop.svg'></a></div>
                     </div>
                     <div class="articleDes">
                         <h2>{{ article.name }}</h2>
                         <p>{{ article.description }}</p>
-                        <h6>{{ article.author}}</h6>
                         <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
                         <h3 v-else>Цена не указана.</h3>
+                        <router-link :to="{ name: 'Article', params: { id: article.id } }">подробнее</router-link>
                     </div>
                 </div>
             </div>
 
-
-            <pagination :data="articles" @pagination-change-page="getResults"></pagination>
+            <div class="paginate">
+                <pagination :data="articles" @pagination-change-page="getResults"></pagination>
+            </div>
+            
 
         </div>
     </div>
@@ -52,7 +54,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     #boardMain{
         margin: 0;
         text-align: center;
@@ -64,13 +66,13 @@ export default {
 
     #articleBack{
         box-shadow: 0 0 7px;
-        min-height: 40vh;
+        min-height: 50vh;
         margin-top: 30px;
     }
 
     .article{
         width: 100%;
-        min-width: 300px;
+        min-width: 300px !important;
     }
 
     .articleDes{
@@ -98,6 +100,16 @@ export default {
         height: 5em;
         width: 100%;
     }
+    
+    .articleDes h2{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 2.5em;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
 
     #cat{
         width: 4em;
@@ -112,5 +124,11 @@ export default {
     #cat img{
         width: 3em;
     }
+    
+    .paginate{
+        margin: 3%;
+        width: 100%;
+    }
+    
 
 </style>

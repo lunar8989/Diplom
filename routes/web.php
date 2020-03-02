@@ -21,20 +21,11 @@ Route::get('/addarticle', function () {
     return view('addarticle');
 });
 
-Route::get('/login', function () {
-	return view('login');
-});
-
-Route::get('/register', function () {
-	return view('register');
-});
-
-Route::get('/user/dashboard', function () {
-	return view('user');
-});
-
 //get items
 Route::get('api/articles', 'ArticleController@index');
+Route::get('api/cities', 'CityController@index');
+Route::get('api/regions', 'RegionController@index');
+Route::get('api/categories', 'CategoriesController@index');
 
 Route::get('/{any?}', function (){
 	return view('index');

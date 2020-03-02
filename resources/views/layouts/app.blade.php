@@ -47,6 +47,16 @@
         .py-4{
             min-height: 84.6vh;
         }
+
+        .page-item.active .page-link {
+            background-color: #FF6200 !important;
+            color: white !important;
+        }
+
+        .page-link {
+            color: #FF6200 !important;
+        }
+        
         
     </style>
 </head>

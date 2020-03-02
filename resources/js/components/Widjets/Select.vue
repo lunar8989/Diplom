@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row form-group">
             <select class="mySelect col-md-12 custom-select" required>
-                <option class="myOption" v-for="item in data" v-bind:key="item.id" :value=item.value>{{ item.name }}</option>
+                <option class="myOption" v-for="item in this.data" v-bind:key="item.id" :value=item.name>{{ item.name }}</option>
             </select>
             <div class="invalid-feedback">Поле не выбрано.</div>
         </div>

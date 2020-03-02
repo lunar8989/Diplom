@@ -26,7 +26,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div v-for="cat in categories.data" v-bind:key="cat.id" v-if="cat.id < 5" class="col-sm-2 category">
+                        <div v-for="cat in categories" v-bind:key="cat.id" v-if="cat.id < 6" class="col-sm-2 category">
                             <a :href=cat.url><img :src=cat.img /></a>
                             <p>{{ cat.name }}</p>
                         </div>

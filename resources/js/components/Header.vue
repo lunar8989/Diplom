@@ -16,9 +16,9 @@
 
                     <div id="headerMenu" class="col-md-7">
                         <div id="munuPos">
-                            <li class="customBtn"><a href="/">главная</a></li>
-                            <li class="customBtn"><a v-if="!this.$auth.check()" href="/login">вход</a><a v-if="this.$auth.check()" @click.prevent="this.$auth.logout()" style="cursor: pointer">выход</a></li>
-                            <li class="addArticle"><a id="addArticle" @click='checkLogin'>добавить объявление</a></li>
+                            <li class="customBtn"><router-link to="/">главная</router-link></li>
+                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link><a href="#" v-if="this.$auth.check()" @click.prevent="this.$auth.logout()" style="cursor: pointer">выход</a></li>
+                            <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
                         </div>
                     </div>
 

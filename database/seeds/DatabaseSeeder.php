@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call(ArticlesTableSeeder::class);
+		$this->call(CitiesTableSeeder::class);
+		$this->call(RegionsTableSeeder::class);
+		$this->call(CategoriesTableSeeder::class);
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'vitaminka027@gmail.com',

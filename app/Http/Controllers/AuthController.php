@@ -14,10 +14,10 @@ class AuthController extends Controller
 	 */
 //
 
-	public function __construct()
-	{
-		$this->middleware('auth:api', ['except' => ['login']]);
-	}
+//	public function __construct()
+//	{
+//		$this->middleware('auth:api', ['except' => ['login']]);
+//	}
 
 	/**
 	 * Get a JWT via given credentials.
@@ -31,9 +31,8 @@ class AuthController extends Controller
 		if (! $token = auth()->attempt($credentials)) {
 			return response()->json(['error' => 'Unauthorized'], 401);
 		}
-
-        redirect('/user/dashboard');
 		return $this->respondWithToken($token);
+		
 	}
 
 	/**
@@ -65,7 +64,6 @@ class AuthController extends Controller
 	public function logout()
 	{
 		auth()->logout();
-
 		return response()->json(['message' => 'Successfully logged out']);
 	}
 
@@ -95,8 +93,8 @@ class AuthController extends Controller
     {
         $user = User::find(Auth::user()->id);
         return response()->json([
-            'status' => 'success',
-            'data' => $user
+			'status' => 'success',
+			'data' => $user
         ]);
     }
 

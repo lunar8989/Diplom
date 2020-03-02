@@ -41,7 +41,7 @@
                                 <input type="password" id="password_confirmation" class="form-control" v-model="password_confirmation">
                             </div>
                             <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-                            <a href="/login" id="link">Войти</a>
+                            <router-link to="/login" id="link">Войти</router-link>
                         </form>
                     </div>
                 </div>

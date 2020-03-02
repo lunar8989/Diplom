@@ -22,7 +22,7 @@ Route::post('auth/register', 'Auth\RegisterController@register');
 
 //auth
 
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->group(function ($router) {
     // Below mention routes are public, user can access those without any restriction.
 
     // Login User
@@ -42,8 +42,4 @@ Route::prefix('auth')->group(function () {
 
 Route::post('addArticle', 'ArticleController@create');
 
-Route::get('cities', 'CityController@show');
-Route::get('region', 'RegionController@show');
-Route::get('categories', 'CateroryController@show');
-
-Route::get('article/{id}', 'ArticleController@find');
+Route::get('user', 'UserController@index');

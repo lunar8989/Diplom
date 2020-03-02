@@ -10,7 +10,8 @@
 
 <script>
     export default {
-        name: "map"
+        props:['width', 'height'],
+        name: "map",
     }
 </script>
 

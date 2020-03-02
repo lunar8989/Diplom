@@ -1,10 +1,11 @@
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 // Pages
-import MainPage from './components/MainPage'
-import Register from './components/Auth/Register'
-import Login from './components/Auth/Login'
-import Dashboard from './components/User/Dashboard'
-// import AdminDashboard from './components/admin/Dashboard'
+import MainPage from './components/MainPage';
+import Register from './components/Auth/Register';
+import Login from './components/Auth/Login';
+import Dashboard from './components/User/Dashboard';
+import AddArticle from "./components/Articles/AddArticle";
+import ArticlePage from "./components/Articles/ArticlePage";
 
 // Routes
 const routes = [
@@ -12,9 +13,6 @@ const routes = [
         path: '/',
         name: 'MainPage',
         component: MainPage,
-        meta: {
-            auth: undefined
-        }
     },
     {
         path: '/register',
@@ -32,15 +30,29 @@ const routes = [
             auth: false
         }
     },
+    {
+        path: '/addarticle',
+        name: 'AddArticle',
+        component: AddArticle,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: 'article/:id',
+        name: 'Article',
+        component: ArticlePage,
+    },
     // USER ROUTES
     {
-        path: '/dashboard',
-        name: 'dashboard',
+        path: 'user/dashboard',
+        name: 'Dashboard',
         component: Dashboard,
         meta: {
             auth: true
         }
     },
+    
 ];
 const router = new VueRouter({
     history: true,

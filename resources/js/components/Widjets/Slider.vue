@@ -12,7 +12,7 @@
                         <div class="slideDes">
                             <h2>{{ article.name }}</h2>
                             <p>{{ article.description }}</p>
-                            <h6>{{ article.autor}}</h6>
+                            <h6>{{ article.author}}</h6>
                             <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3> 
                             <h3 v-else>Цена не указана.</h3>
                         </div>                       
@@ -43,7 +43,7 @@ export default {
             ],
         }
     },
-    mounted: function () {
+    mounted() {
         var swiper = new Swiper('.premium', {
             slidesPerView: 4,
             spaceBetween: 25,
@@ -53,6 +53,11 @@ export default {
             },
 
         });
+    
+        // axios.get('/articles')
+        //     .then(response => {
+        //         this.articles = response.data;
+        //     });
     },
 }
 </script>
@@ -98,6 +103,16 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         height: 5em;
+        width: 100%;
+    }
+
+    .articleDes h2{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 2.5em;
+        text-overflow: ellipsis;
         width: 100%;
     }
 

@@ -20,7 +20,7 @@
                                 <input type="password" id="password" class="form-control" v-model="password" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Войти</button>
-                            <a href="/register" id="link">Зарегистрироваться</a>
+                            <router-link to="/register" id="link">Зарегистрироваться</router-link>
                         </form>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     success: function() {
                         // handle redirection
                         app.success = true;
-                        const redirectTo = 'dashboard';
+                        const redirectTo = 'Dashboard';
                         this.$router.push({name: redirectTo})
                     },
                     error: function(res) {

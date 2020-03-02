@@ -53,6 +53,7 @@ class ArticleController extends Controller
 		}
 		
 		return view('article', ['id' => $article->id]);
+//		return redirect()->route('article', [$article->id]);
 	}
     
     public function find($id){
