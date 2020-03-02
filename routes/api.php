@@ -42,4 +42,4 @@ Route::prefix('auth')->group(function ($router) {
 
 Route::post('addArticle', 'ArticleController@create');
 
-Route::get('user', 'UserController@index');
+Route::get('users', 'UserController@index');

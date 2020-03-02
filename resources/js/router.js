@@ -39,20 +39,20 @@ const routes = [
         }
     },
     {
-        path: 'article/:id',
+        path: '/article/:id',
         name: 'Article',
         component: ArticlePage,
     },
     // USER ROUTES
     {
-        path: 'user/dashboard',
+        path: '/user/dashboard',
         name: 'Dashboard',
         component: Dashboard,
         meta: {
             auth: true
         }
     },
-    
+
 ];
 const router = new VueRouter({
     history: true,

@@ -14,6 +14,11 @@ class ArticleController extends Controller
         return response()->json($data);
     }
 
+    public function find($id){
+        $data = Article::where('id', $id);
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,25 +49,15 @@ class ArticleController extends Controller
         $article->user()->associate($user);
         $article->save();
     }
-    
+
     public function show($id){
 		$article = Article::where('id', $id)->first();
-	
+
 		if(!$article){
 			return response()->json('',404);
 		}
-		
+
 		return view('article', ['id' => $article->id]);
 //		return redirect()->route('article', [$article->id]);
-	}
-    
-    public function find($id){
-    	$article = Article::where('id', $id)->first();
-    	
-    	if(!$article){
-    		return response()->json('',404);
-		}
-    	
-    	return response()->json($article);
 	}
 }

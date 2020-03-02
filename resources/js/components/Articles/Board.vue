@@ -4,7 +4,7 @@
             <div v-for="article in articles.data" v-bind:key="article.id" class="article col-sm-3" >
                 <div id="articleBack">
                     <div class="articleImg">
-                        <img :src=article.img>
+                        <img :src="article.img">
                         <h5><strong>{{ article.date }}</strong></h5>
                         <div id="cat"><a href="#"><img src='/images/shop.svg'></a></div>
                     </div>
@@ -21,7 +21,7 @@
             <div class="paginate">
                 <pagination :data="articles" @pagination-change-page="getResults"></pagination>
             </div>
-            
+
 
         </div>
     </div>
@@ -45,7 +45,7 @@ export default {
                 page = 1;
             }
 
-			axios.get('/articles?page=' + page)
+			axios.get('/articles/paginate?page=' + page)
                 .then(response => {
                     this.articles = response.data;
                 });
@@ -100,7 +100,7 @@ export default {
         height: 5em;
         width: 100%;
     }
-    
+
     .articleDes h2{
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -124,11 +124,11 @@ export default {
     #cat img{
         width: 3em;
     }
-    
+
     .paginate{
         margin: 3%;
         width: 100%;
     }
-    
+
 
 </style>
