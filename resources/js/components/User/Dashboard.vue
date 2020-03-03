@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="card card-default">
+    <div class="container-fluid">
+        <div class="row card card-default">
             <div class="card-header">Dashboard</div>
             <div class="card-body">
                 User Dashboard
@@ -11,7 +11,16 @@
 
 <script>
     export default {
-        name: "Dashboard"
+        name: "Dashboard",
+        data(){
+            return{
+                user:{},
+            }
+        },
+        created() {
+            axios.get('/user', { params: { id: this.$route.params.userId } })
+                .then(response => { this.user = response.data; })
+        }
     }
 </script>
 

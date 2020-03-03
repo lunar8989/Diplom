@@ -13,7 +13,7 @@
                             <li><i class="fa fa-bookmark" aria-hidden="true"></i> {{ article.category }}</li>
                             <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ article.date }}</li>
                         </ul>
-<!--                        <img >-->
+                        <img :src="article.img">
                     </div>
                 </div>
 
@@ -52,36 +52,27 @@
         name: "ArticlePage",
         data(){
             return{
-                articles: {},
                 article: {},
-                users: {},
                 user: null,
                 id: null,
             }
         },
 
         created(){
-            this.id = this.$route.params.id;
+            this.id = this.$route.params.articleId;
             axios.get('/articles', { params: {
-                ID:  12345
-            }})
-                .then(response => {
-                    this.article = response.data;
-                });
-
-            // this.article = this.articles.data[this.id++];
+                id:  this.id
+                }}).then(response => {
+                this.article = response.data;
+            });
 
             // if(this.article){
-            //     axios.get('/users')
+            //     axios.get('/users',{ params: {
+            // id:  this.article.author
+            // }})
             //         .then(response => {
             //             this.users = response.data;
             //         });
-            //
-            //     for(var i = 1; i < this.users.data.count; i++){
-            //         if(this.users.data[i].id === this.article.id){
-            //             this.user = this.users.data[i];
-            //         }
-            //     }
             // }
         },
 
@@ -94,6 +85,6 @@
     }
 
     .articleTitle{
-        border-bottom: 1px gray;
+        border-bottom: 1px solid gray;
     }
 </style>

@@ -38,7 +38,8 @@
                 password: null,
                 success: false,
                 has_error: false,
-                error: ''
+                error: '',
+                id: this.$auth.user.id,
             }
         },
         mounted() {
@@ -59,7 +60,7 @@
                         // handle redirection
                         app.success = true;
                         const redirectTo = 'Dashboard';
-                        this.$router.push({name: redirectTo})
+                        this.$router.push({name: redirectTo, params: { userId: this.id }})
                     },
                     error: function(res) {
                         app.has_error = true;

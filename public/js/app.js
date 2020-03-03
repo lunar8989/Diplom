@@ -3232,9 +3232,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "ArticlePage",
   data: function data() {
     return {
-      articles: {},
       article: {},
-      users: {},
       user: null,
       id: null
     };
@@ -3245,12 +3243,11 @@ __webpack_require__.r(__webpack_exports__);
     this.id = this.$route.params.id;
     axios.get('/articles', {
       params: {
-        ID: 12345
+        id: this.id
       }
     }).then(function (response) {
       _this.article = response.data;
-    }); // this.article = this.articles.data[this.id++];
-    // if(this.article){
+    }); // if(this.article){
     //     axios.get('/users')
     //         .then(response => {
     //             this.users = response.data;
@@ -8550,7 +8547,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.articleAuthor[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n}\n.articleTitle[data-v-b80009c4]{\n    border-bottom: 1px gray;\n}\n", ""]);
+exports.push([module.i, "\n.articleAuthor[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n}\n.articleTitle[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n}\n", ""]);
 
 // exports
 
@@ -42519,7 +42516,9 @@ var render = function() {
                   }),
                   _vm._v(" " + _vm._s(_vm.article.date))
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c("img", { attrs: { src: _vm.article.img } })
             ])
           ]),
           _vm._v(" "),
@@ -60296,8 +60295,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\1\Desktop\OSPanel\domains\Diplom\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\1\Desktop\OSPanel\domains\Diplom\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\open\OSPanel\domains\larav\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\open\OSPanel\domains\larav\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

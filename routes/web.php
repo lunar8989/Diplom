@@ -23,7 +23,7 @@ Route::get('/addarticle', function () {
 
 //get items
 Route::get('api/articles/paginate', 'ArticleController@index');
-Route::get('api/articles/{id}', 'ArticleController@find');
+Route::get('api/articles', 'ArticleController@find');
 Route::get('api/cities', 'CityController@index');
 Route::get('api/regions', 'RegionController@index');
 Route::get('api/categories', 'CategoriesController@index');

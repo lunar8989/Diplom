@@ -14,8 +14,11 @@ class ArticleController extends Controller
         return response()->json($data);
     }
 
-    public function find($id){
-        $data = Article::where('id', $id);
+    public function find(Request $request){
+        $data = Article::find($request->id);
+        if(!$data){
+        	return response()->json('error', 400);
+		}
         return response()->json($data);
     }
 

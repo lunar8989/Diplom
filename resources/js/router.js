@@ -39,13 +39,13 @@ const routes = [
         }
     },
     {
-        path: '/article/:id',
+        path: '/article/:articleId',
         name: 'Article',
         component: ArticlePage,
     },
     // USER ROUTES
     {
-        path: '/user/dashboard',
+        path: '/user/dashboard/:userId',
         name: 'Dashboard',
         component: Dashboard,
         meta: {
