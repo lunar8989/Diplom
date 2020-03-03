@@ -17,7 +17,7 @@
                     <div id="headerMenu" class="col-md-7">
                         <div id="munuPos">
                             <li class="customBtn"><router-link to="/">главная</router-link></li>
-                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link><a href="#" v-if="this.$auth.check()" @click.prevent="this.$auth.logout()" style="cursor: pointer">выход</a></li>
+                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link><a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
                             <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
                         </div>
                     </div>
@@ -55,6 +55,18 @@
                 }else{
                     document.getElementById('addArticle').href = '/addarticle';
                 }
+            },
+
+            logout() {
+                this.$auth.logout({
+                    makeRequest: true,
+                    success() {
+                        console.log('success ' + this.context);
+                    },
+                    error() {
+                        console.log('error ' + this.context);
+                    }
+                });
             },
 
         },

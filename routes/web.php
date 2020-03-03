@@ -25,8 +25,10 @@ Route::get('/addarticle', function () {
 Route::get('api/articles/paginate', 'ArticleController@index');
 Route::get('api/articles', 'ArticleController@find');
 Route::get('api/cities', 'CityController@index');
+Route::get('api/users', 'UserController@find');
 Route::get('api/regions', 'RegionController@index');
 Route::get('api/categories', 'CategoriesController@index');
+Route::get('api/comments', 'ComentController@find');
 
 Route::get('/{any?}', function (){
 	return view('index');

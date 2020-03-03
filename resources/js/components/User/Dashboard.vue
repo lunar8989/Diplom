@@ -18,7 +18,7 @@
             }
         },
         created() {
-            axios.get('/user', { params: { id: this.$route.params.userId } })
+            axios.get('/users', { params: { id: this.$route.params.userId } })
                 .then(response => { this.user = response.data; })
         }
     }

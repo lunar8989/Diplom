@@ -13,7 +13,7 @@
                         <p>{{ article.description }}</p>
                         <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
                         <h3 v-else>Цена не указана.</h3>
-                        <router-link :to="{ name: 'Article', params: { id: article.id } }">подробнее</router-link>
+                        <router-link :to="{ name: 'Article', params: { articleId: article.id } }">подробнее</router-link>
                     </div>
                 </div>
             </div>
