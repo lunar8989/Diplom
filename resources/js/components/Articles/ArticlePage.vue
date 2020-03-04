@@ -56,11 +56,18 @@
                         </div>
 
                         <div class="vidjet" v-if="comStatus">
+                            <div class="comments">
 
+                            </div>
+
+                            <div class="commentsBtn">
+                                <input type="text" v-model="message">
+                                <button class="comBtn">Отправить</button>
+                            </div>
                         </div>
 
                         <div class="vidjet" v-if="mapStatus">
-
+                            <map-comp></map-comp>
                         </div>
                     </div>
                 </div>
@@ -90,7 +97,21 @@
 
         methods:{
             des() {
+                this.desStatus = true;
+                this.comStatus = false;
+                this.mapStatus = false;
+            },
 
+            com() {
+                this.desStatus = false;
+                this.comStatus = true;
+                this.mapStatus = false;
+            },
+
+            map() {
+                this.desStatus = false;
+                this.comStatus = false;
+                this.mapStatus = true;
             }
         },
 
@@ -182,6 +203,10 @@
         cursor: pointer;
     }
 
+    .leftBox ul li:focus{
+        border-bottom: 2px solid #FF6200;
+    }
+
     .rightBox{
         background-color: white;
         color: black;
@@ -208,6 +233,31 @@
         text-decoration: none;
         color: white;
         font-size: 25px;
+    }
+
+    .comments{
+        width: 100%;
+        height: 50vh;
+        box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);
+        margin-bottom: 2vh;
+    }
+
+    .commentsBtn input[type=text]{
+        width: 80%;
+        height: 50px;
+        float: left;
+    }
+
+    .commentsBtn input[type=text]:focus{
+        outline: none;
+        border-bottom: 2px solid #FF6200;
+    }
+
+    .commentsBtn button{
+        width: 20%;
+        height: 50px;
+        background-color: #FF6200;
+        color: white;
     }
 
 </style>

@@ -3254,6 +3254,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ArticlePage",
   data: function data() {
@@ -3268,7 +3275,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    des: function des() {}
+    des: function des() {
+      this.desStatus = true;
+      this.comStatus = false;
+      this.mapStatus = false;
+    },
+    com: function com() {
+      this.desStatus = false;
+      this.comStatus = true;
+      this.mapStatus = false;
+    },
+    map: function map() {
+      this.desStatus = false;
+      this.comStatus = false;
+      this.mapStatus = true;
+    }
   },
   created: function created() {
     var _this = this;
@@ -8617,7 +8638,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.articleAuthor[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n    padding: 3vh;\n}\n.articleAuthor img[data-v-b80009c4]{\n    width: 70%;\n    margin-left: 15%;\n    margin-right: 15%;\n    border-radius: 50%;\n}\n.articleTitle[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n    padding: 3vh;\n    font-size: 35px !important;\n}\n.articleTitle h2[data-v-b80009c4]{\n    float: left;\n    display: -webkit-box;\n    -webkit-line-clamp: 0.7;\n    -webkit-box-orient: vertical;\n    overflow: hidden;\n    height: 2.5em;\n    text-overflow: ellipsis;\n    width: 70%;\n}\n.articleTitle h3[data-v-b80009c4]{\n    float: right;\n}\n.leftBox[data-v-b80009c4]{\n    background-color: white;\n    color: black;\n    padding: 3%;\n    margin-right: 3%;\n    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n.leftBox img[data-v-b80009c4]{\n    width: 100%;\n}\n.leftBox ul[data-v-b80009c4]{\n    list-style-type: none;\n}\n.leftBox ul li[data-v-b80009c4]{\n    display: inline;\n    margin-right: 3%;\n}\n.leftBox ul li[data-v-b80009c4]:hover{\n    cursor: pointer;\n}\n.rightBox[data-v-b80009c4]{\n    background-color: white;\n    color: black;\n    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n.articleDes[data-v-b80009c4]{\n    margin-top: 3%;\n}\n.des[data-v-b80009c4]{\n    height: 100vh;\n}\n.desBtn[data-v-b80009c4]{\n    font-size: 25px;\n}\n.btn[data-v-b80009c4]{\n    background-color: #FF6200;\n    padding: 1vh;\n    width: 100%;\n    margin: 3%;\n    text-decoration: none;\n    color: white;\n    font-size: 25px;\n}\n\n", ""]);
+exports.push([module.i, "\n.articleAuthor[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n    padding: 3vh;\n}\n.articleAuthor img[data-v-b80009c4]{\n    width: 70%;\n    margin-left: 15%;\n    margin-right: 15%;\n    border-radius: 50%;\n}\n.articleTitle[data-v-b80009c4]{\n    border-bottom: 1px solid gray;\n    padding: 3vh;\n    font-size: 35px !important;\n}\n.articleTitle h2[data-v-b80009c4]{\n    float: left;\n    display: -webkit-box;\n    -webkit-line-clamp: 0.7;\n    -webkit-box-orient: vertical;\n    overflow: hidden;\n    height: 2.5em;\n    text-overflow: ellipsis;\n    width: 70%;\n}\n.articleTitle h3[data-v-b80009c4]{\n    float: right;\n}\n.leftBox[data-v-b80009c4]{\n    background-color: white;\n    color: black;\n    padding: 3%;\n    margin-right: 3%;\n    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n.leftBox img[data-v-b80009c4]{\n    width: 100%;\n}\n.leftBox ul[data-v-b80009c4]{\n    list-style-type: none;\n}\n.leftBox ul li[data-v-b80009c4]{\n    display: inline;\n    margin-right: 3%;\n}\n.leftBox ul li[data-v-b80009c4]:hover{\n    cursor: pointer;\n}\n.leftBox ul li[data-v-b80009c4]:focus{\n    border-bottom: 2px solid #FF6200;\n}\n.rightBox[data-v-b80009c4]{\n    background-color: white;\n    color: black;\n    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n.articleDes[data-v-b80009c4]{\n    margin-top: 3%;\n}\n.des[data-v-b80009c4]{\n    height: 100vh;\n}\n.desBtn[data-v-b80009c4]{\n    font-size: 25px;\n}\n.btn[data-v-b80009c4]{\n    background-color: #FF6200;\n    padding: 1vh;\n    width: 100%;\n    margin: 3%;\n    text-decoration: none;\n    color: white;\n    font-size: 25px;\n}\n.comments[data-v-b80009c4]{\n    width: 100%;\n    height: 50vh;\n    box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);\n    margin-bottom: 2vh;\n}\n.commentsBtn input[type=text][data-v-b80009c4]{\n    width: 80%;\n    height: 50px;\n    float: left;\n}\n.commentsBtn input[type=text][data-v-b80009c4]:focus{\n    outline: none;\n    border-bottom: 2px solid #FF6200;\n}\n.commentsBtn button[data-v-b80009c4]{\n    width: 20%;\n    height: 50px;\n    background-color: #FF6200;\n    color: white;\n}\n\n", ""]);
 
 // exports
 
@@ -42699,9 +42720,40 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.comStatus ? _c("div", { staticClass: "vidjet" }) : _vm._e(),
+          _vm.comStatus
+            ? _c("div", { staticClass: "vidjet" }, [
+                _c("div", { staticClass: "comments" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "commentsBtn" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.message,
+                        expression: "message"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.message },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.message = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "comBtn" }, [_vm._v("Отправить")])
+                ])
+              ])
+            : _vm._e(),
           _vm._v(" "),
-          _vm.mapStatus ? _c("div", { staticClass: "vidjet" }) : _vm._e()
+          _vm.mapStatus
+            ? _c("div", { staticClass: "vidjet" }, [_c("map-comp")], 1)
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
