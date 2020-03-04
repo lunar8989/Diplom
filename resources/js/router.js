@@ -43,10 +43,19 @@ const routes = [
         name: 'Article',
         component: ArticlePage,
     },
-    // USER ROUTES
+    // users
     {
         path: '/user/dashboard/:userId',
         name: 'Dashboard',
+        component: Dashboard,
+        meta: {
+            auth: true
+        }
+    },
+    // admin
+    {
+        path: '/admin/dashboard/:userId',
+        name: 'adminDashboard',
         component: Dashboard,
         meta: {
             auth: true

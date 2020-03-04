@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->text('value');
+            $table->date('date');
         });
     }
 

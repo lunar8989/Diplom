@@ -26,13 +26,14 @@ Route::get('api/articles/paginate', 'ArticleController@index');
 Route::get('api/articles', 'ArticleController@find');
 Route::get('api/cities', 'CityController@index');
 Route::get('api/users', 'UserController@find');
+Route::get('api/user', 'UserController@show');
 Route::get('api/regions', 'RegionController@index');
 Route::get('api/categories', 'CategoriesController@index');
-Route::get('api/comments', 'ComentController@find');
+Route::get('api/comments', 'CommentController@find');
 
 Route::get('/{any?}', function (){
 	return view('index');
 })->where('any', '^(?!api\/)[\/\w\.-]*');
 
-// Route::get('/checklogin', 'HomeController@checklogin');
+
 

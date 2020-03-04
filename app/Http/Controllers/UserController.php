@@ -8,13 +8,20 @@ use App\User;
 class UserController extends Controller
 {
     public function index(){
-    	$users = User::all();
+    	$data = User::all();
 
-    	return response()->json($users);
+    	return response()->json($data);
 	}
 
 	public function find(Request $request){
         $data = User::find($request->id);
+        
         return response()->json($data);
     }
+	
+	public function show(Request $request){
+		$data = User::where('email', $request->email);
+		
+		return response()->json($data);
+	}
 }

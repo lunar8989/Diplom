@@ -59,6 +59,15 @@
         
         
     </style>
+    
+    <script>
+        document.body.addEventListener('click', (e) => {
+        
+            let hidingBlock = document.querySelector('#searchBox');
+            hidingBlock.style.display = 'none';
+            document.getElementById('btnShowSearch').style.display = "";
+        });
+    </script>
 </head>
 <body>
     <div id="app">

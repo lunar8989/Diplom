@@ -39,6 +39,7 @@
                 success: false,
                 has_error: false,
                 error: '',
+                user: {},
             }
         },
         mounted() {
@@ -58,9 +59,16 @@
                     success: function() {
                         // handle redirection
                         app.success = true;
-                        const redirectTo = 'Dashboard';
-                        var id = this.$auth.id;
-                        this.$router.push({name: redirectTo, params: { userId: id }})
+                        axios.get('/user', { params: { email: app.email } })
+                            .then(response => {
+                            this.user = response.data;
+                        });
+                        
+                        if(this.user.name === 'admin'){
+                            this.$router.push({name: 'adminDashboard', params: { userId: this.user.id }});
+                        }else{
+                            this.$router.push({name: 'Dashboard', params: { userId: this.user.id }});
+                        }
                     },
                     error: function(res) {
                         app.has_error = true;
@@ -70,7 +78,6 @@
                     fetchUser: true
                 })
             },
-
         }
     }
 </script>

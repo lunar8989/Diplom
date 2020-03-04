@@ -32,4 +32,10 @@ class CommentController extends Controller
         $comment->article()->associate($article);
         $comment->save();
     }
+    
+    public function find(Request $request){
+    	$data = Comment::find($request->id);
+    	
+    	return response()->json($data);
+	}
 }

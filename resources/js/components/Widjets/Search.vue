@@ -34,7 +34,7 @@
     #searchBox{
         padding: 0;
     }
-
+    
     .searchInput{
         height: 50px;
         float: left;

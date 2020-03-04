@@ -1,28 +1,26 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" @click="searchHide">
         <div class="row">
-            <div class="col-md-12" id="topHeader">
+            <div class="col-sm-12" id="topHeader">
                 <div class="row">
-                    <div id="logo" class="col-md-1">
+                    <div id="logo" class="col-sm-1">
                         <a href="/"><img id="headerLogo" src="../../img/logo.png" alt=""></a>
                     </div>
 
-                    <div id="searchHeader" class="col-md-4">
-                        <search :searchShow="false"></search>
+                    <div id="searchHeader" class="col-sm-4">
+                        <search :searchShow="searchStatus"></search>
                         <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
                             <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
                         </button>
                     </div>
 
-                    <div id="headerMenu" class="col-md-7">
+                    <div id="headerMenu" class="col-sm-7">
                         <div id="munuPos">
                             <li class="customBtn"><router-link to="/">главная</router-link></li>
                             <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link><a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
                             <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -39,22 +37,14 @@
         },
         data(){
             return {
-                formStatus: '',
+                searchStatus: false,
             }
         },
         methods: {
-            showsearch: function() {
+            showsearch() {
                 document.getElementById('searchBox').style.display = "";
                 document.getElementById('btnShowSearch').style.display = "none";
-            },
-
-            checkLogin: function(){
-                if(!this.$auth.check()){
-                    document.getElementById('addArticle').href = '#';
-                    alert('Вы не авторизованы.');
-                }else{
-                    document.getElementById('addArticle').href = '/addarticle';
-                }
+                this.searchStatus = true;
             },
 
             logout() {
@@ -68,13 +58,14 @@
                     }
                 });
             },
-
+            
+            // searchHide(){
+            //     if (this.searchStatus !== false){
+            //             document.getElementById('searchBox').style.display = 'none';
+            //             document.getElementById('btnShowSearch').style.display = "";
+            //     }
+            // },
         },
-        // mounted(){
-        //     axios.get('/checklogin').then(response => {
-		// 			this.login = response;
-        //         });
-        // }
     }
 </script>
 
@@ -105,6 +96,10 @@
         text-align: center;
         color: white;
 
+    }
+    
+    .hideSearch{
+    
     }
 
     .customBtn{

@@ -32,7 +32,7 @@
                     <div class="col-sm-12 articleCont">
                         <p><i class="fa fa-phone" aria-hidden="true"></i> {{ user.phone }}</p>
                         <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user.email }}</p>
-<!--                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.address }}</p>-->
+                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.address }}</p>
                     </div>
 
                     <div class="col-sm-12 articleBtn">
@@ -57,7 +57,9 @@
 
                         <div class="vidjet" v-if="comStatus">
                             <div class="comments">
-
+                                <div class="comment" v-for="comment in comments" :key="comment.id">
+                                
+                                </div>
                             </div>
 
                             <div class="commentsBtn">
@@ -119,25 +121,23 @@
             this.id = this.$route.params.articleId;
 
             axios.get('/articles', { params: {
-                id:  this.id
+                    id:  this.id
                 }}).then(response => {
                 this.article = response.data;
             });
 
             if(this.article){
                 axios.get('/users',{ params: {
-                id:  1
-                }})
-                .then(response => {
+                    id:  1
+                }}).then(response => {
                     this.user = response.data;
                 });
 
                 axios.get('/comments',{ params: {
                         id:  1
-                    }})
-                    .then(response => {
-                        this.comments = response.data;
-                    });
+                }}).then(response => {
+                    this.comments = response.data;
+                });
             }
         },
 
@@ -155,6 +155,11 @@
         margin-left: 15%;
         margin-right: 15%;
         border-radius: 50%;
+    }
+    
+    .articleAuthor label{
+        margin-top: 3vh;
+        font-size: 25px;
     }
 
     .articleTitle{
@@ -193,18 +198,18 @@
     .leftBox ul{
         list-style-type: none;
     }
-
+    
     .leftBox ul li{
         display: inline;
         margin-right: 3%;
     }
 
-    .leftBox ul li:hover{
-        cursor: pointer;
+    .desBtn li{
+        border-bottom: 2px solid #FF6200;
     }
 
-    .leftBox ul li:focus{
-        border-bottom: 2px solid #FF6200;
+    .desBtn li:hover{
+        cursor: pointer;
     }
 
     .rightBox{
