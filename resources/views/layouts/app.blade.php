@@ -27,21 +27,15 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
     <script src="https://unpkg.com/swiper/js/swiper.js"></script>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-
+    
+    <!-- maps -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=81851459-6c5c-4319-b440-ac23aa0f8004&lang=ru_RU" type="text/javascript"> </script>
+    
+    
     <style>
         *{
             padding: 0;
             margin: 0;
-        }
-
-        body{
-            width: 100%;
-            color: white;
-            background: url('./images/backgroundimg.png') repeat-y center center fixed;
-            background-size: cover;
-            background-attachment: fixed;
-            background-color: rgba(0,0,0,.8);
-            background-blend-mode: darken;
         }
 
         .py-4{
@@ -56,30 +50,49 @@
         .page-link {
             color: #FF6200 !important;
         }
+
+        .dropdown-toggle{
+            height: 50px !important;
+        }
+
+        .bootstrap-select{
+            padding: 0 !important;
+        }
+
+        .btn-lg{
+            padding: 6px 12px;
+        }
+
+        .btn-warning{
+            background: yellow;
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 100%;
+            padding: 0 !important;
+        }
+
+        .dropdown-menu{
+            min-width: 20rem;
+        }
         
         
     </style>
-    
-    <script>
-        document.body.addEventListener('click', (e) => {
-        
-            let hidingBlock = document.querySelector('#searchBox');
-            hidingBlock.style.display = 'none';
-            document.getElementById('btnShowSearch').style.display = "";
-        });
-    </script>
 </head>
 <body>
     <div id="app">
 
-        <header-comp></header-comp>
+        <keep-alive>
+            <header-comp></header-comp>
+        </keep-alive>
+        
 
         <main class="py-4">
             @yield('content')
         </main>
 
+        
         <footer-comp></footer-comp>
-
+        
     </div>
 </body>
 </html>

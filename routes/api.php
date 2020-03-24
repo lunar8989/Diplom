@@ -37,9 +37,9 @@ Route::prefix('auth')->group(function ($router) {
         Route::get('user', 'AuthController@user');
         // Logout user from application
         Route::post('logout', 'AuthController@logout');
+
     });
 });
 
-Route::post('addArticle', 'ArticleController@create');
 
-Route::get('users', 'UserController@index');
+

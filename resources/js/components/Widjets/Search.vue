@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
         <div id="search" class="row">
-            <div id="searchBox" class="col-md-12" v-show="searchShow">
-                <input class="col-md-10 searchInput"  type="text" name="search" placeholder="Поиск..">
-                <button @click="searching" class="col-md-2" id="btnSearch" type="button">  
+            <div id="searchBox" class="col-12" v-show="searchShow">
+                <input class="col-10 searchInput"  type="text" v-model="value" placeholder="Поиск..">
+                <button @click="searching" class="col-2" id="btnSearch" type="button">
                     <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
                 </button> 
             </div>
@@ -17,12 +17,12 @@
         props:['searchShow'],
         data() {
             return{
-                
+                value: '',
             }
         },
         methods: {
             searching: function(){
-                var search = this.search.value;
+                this.$router.push({ name: 'Searching', params: { filters: { value: this.value } } });
             }
         },
     }

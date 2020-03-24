@@ -1,10 +1,4 @@
 <template>
-<!--    <form ref="reg" method="post" class="modalForm" id="formReg">-->
-<!--        <input type="text" name="name"  placeholder="Ваше имя"><br>-->
-<!--        <input type="email" name="email"  placeholder="Почта"><br>-->
-<!--        <input type="password"  name="password" placeholder="Пароль"><br>-->
-<!--        <input @click="register" type="submit" name="submit" value="Зарегистрироваться" class="runBtn">-->
-<!--    </form>-->
     <div class="container" style="margin-top: 5vh">
         <div class="row justify-content-md-center">
             <div class="col-6">
@@ -55,7 +49,6 @@
         name: "register",
         data() {
             return {
-
                 name: '',
                 email: '',
                 phone: '',
@@ -65,7 +58,6 @@
                 error: '',
                 errors: {},
                 success: false
-
             }
         },
         methods: {

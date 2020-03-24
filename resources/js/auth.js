@@ -18,7 +18,8 @@ const config = {
     loginData: {
         url: '/auth/login',
         method: 'POST',
-        redirect: '/user/dashboard',
+        redirect: '',
+        fetchUser: true
     },
     logoutData: {
         url: '/auth/logout',

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class ArticleController extends Controller
 {
@@ -15,12 +17,18 @@ class ArticleController extends Controller
     }
 
     public function find(Request $request){
-        $data = Article::find($request->id);
+        $data = Article::find($request->articleId);
         if(!$data){
         	return response()->json('error', 400);
 		}
         return response()->json($data);
     }
+    
+    public function all(){
+    	$data = Article::all();
+    	
+    	return response()->json($data);
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -29,38 +37,100 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-        $user = $request->user;
+        $user = Auth::user();
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'name' => 'required|max:25',
             'description' => 'required',
             'category' => 'required',
+			'img' => 'required',
+			'price' => 'required',
+			'address' => 'required',
         ]);
 
         if($validator->fails()) {
-            return response()->json("error", "401");
+			return response()->json(['message' => $validator->errors()->all()], "422");
         }
-
-        $article = Article::create([
+	
+			$img = '../storage/' . $request->file('img')->store('uploads', 'public');
+	
+		$article = Article::create([
             'name' => $request->name,
             'description' => $request->description,
-            'photo' => $request->img,
+            'img' => $img,
             'price' => $request->price,
             'category' => $request->category,
+			'date' => Carbon::now(),
+			'address' => $request->address,
         ]);
 
-        $article->user()->associate($user);
+        $article->user()->associate($user->id);
         $article->save();
+        
+        return response()->json('ok', 200);
     }
 
-    public function show($id){
-		$article = Article::where('id', $id)->first();
-
-		if(!$article){
-			return response()->json('',404);
-		}
-
-		return view('article', ['id' => $article->id]);
-//		return redirect()->route('article', [$article->id]);
+    public function user(Request $request){
+		$data = Article::find($request->articleId)->user;
+		
+		return response()->json($data);
 	}
+	
+	public function comments(Request $request){
+		$data = Article::find($request->articleId)->comment;
+    	
+    	return response()->json($data);
+	}
+	
+	public function remove(Request $request){
+    	$user = Auth::user();
+    	
+    	$article = Article::find($request->articleId);
+    	
+    	if ($user->id != $article->user_id){
+    		return response()->json('err', 403);
+		}
+  
+    	$article->delete();
+    	
+    	return ($article == true)? response()->json('ok', 200): response()->json(['message' => 'error'], 403);
+	}
+	
+	public function update(Request $request){
+    	$article = Article::find($request->articleId);
+		
+		$attrs = $request->all();
+		$article->update($attrs);
+		
+		return ($article == true) ? response()->json($data = true, 200):
+			response()->json($data = false, 403);
+	}
+	
+	public function filter(Request $request){
+    	$article = Article::query();
+    	
+    	if ($request->name){
+    		$article->where('name', 'like', '%'.$request->name.'%')->get();
+		}
+    	
+    	if ($request->price){
+			$article->where('price', '<', $request->price)->get();
+		}
+		
+		if ($request->category){
+			$article->whereIn('category', $request->category)->get();
+		}
+		
+		if ($request->city){
+			$article->where('city', $request->city)->get();
+		}
+		
+		$data = $article->paginate(12);
+	
+    	if (!$data){
+    		return response()->json('err', 403);
+ 		}
+    	
+    	return response()->json($data);
+    }
 }

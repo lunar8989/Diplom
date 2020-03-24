@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\categories;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -9,8 +10,28 @@ class CategoriesTableSeeder extends Seeder
      *
      * @return void
      */
+    
     public function run()
     {
-		factory(App\categories::class, 5)->create();
+		$name = ['Кошки', 'Собаки', 'Рыбы', 'Птицы', 'Грызуны', 'Земноводные', 'Экзотические', 'Услуги', 'Аксессуары'];
+		$img = [
+			'/images/cat.svg',
+			'/images/dog.svg',
+			'/images/fish.svg',
+			'/images/bird.svg',
+			'/images/hamster.svg',
+			'/images/turtle.svg',
+			'/images/snake.svg',
+			'/images/services.svg',
+			'/images/collar.svg'
+		];
+		
+    	for ($i = 0; $i < count($name); $i++){
+			categories::insert([
+				'name' => $name[$i],
+				'img' => $img[$i],
+			]);
+		}
+    
     }
 }

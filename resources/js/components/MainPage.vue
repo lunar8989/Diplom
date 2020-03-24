@@ -11,26 +11,34 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-12">
                 <div id="settingsBarHeader" class="container ">
                     <div class="row no-gutters" style="padding: 2%">
-                        <div class="col-sm-3 itemMenu"><select-comp :data="categories"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><select-comp :data="regions"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><select-comp :data="cities"></select-comp></div>
-                        <div class="col-sm-3 itemMenu"><search-comp :searchShow="true"></search-comp></div>
+                        <div class="col-4 itemMenu"><select-comp v-model="search.category" :data="categories"></select-comp></div>
+                        <div class="col-4 itemMenu"><select-comp v-model="search.city" :data="cities"></select-comp></div>
+                        <div id="searchBox" class="col-4">
+                            <input class="col-10 searchInput"  type="text" v-model="search.value" placeholder="Поиск..">
+                            <button @click="searching" class="col-2" id="btnSearch" type="button">
+                                <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="categoryHeader" class="col-md-12">
+            <div id="categoryHeader" class="col-12">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div v-for="cat in categories" v-bind:key="cat.id" v-if="cat.id < 6" class="col-sm-2 category">
-                            <a :href=cat.url><img :src=cat.img /></a>
+                        <div class="col-1"></div>
+                        <div v-for="cat in categories" :key="cat.id" v-if="cat.id < 5" class="col-2 category">
+                            <router-link :to="{ name: 'Searching', params: { filters: { category:  [cat.name], value: '', city: '' }}}"><img :src=cat.img /></router-link>
                             <p>{{ cat.name }}</p>
                         </div>
-                        <div class="col-sm-1"></div>
+                        <div class="col-2 category">
+                            <router-link :to="{ name: 'Dashboard', params: { userId: this.user.id } }"><img src="../../img/profile.svg"></router-link>
+                            <p>личный кабинет</p>
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
             </div>
@@ -38,17 +46,17 @@
 
         <div class="sliderPremium row">
             <h1 class="sliderPremiumTitle">Premium объявления</h1>
-            <slider-comp></slider-comp>
+            <slider></slider>
         </div>
 
         <div class="row board">
             <h1 class="sliderPremiumTitle">Последние объявления</h1>
-            <board-comp></board-comp>
+            <board></board>
         </div>
         
         <div class="row map">
             <h1 class="sliderPremiumTitle">Объявления на карте</h1>
-            <map-comp></map-comp>
+            <map-comp :city="city" style="border: 1px solid black"></map-comp>
         </div>
         
     </div>
@@ -56,33 +64,56 @@
 
 <script>
 
+    import slider from './Widjets/Slider'
+    import board from './Articles/Board'
+    import search from './Widjets/Search'
+    var cities = require('../cities');
+    
     export default {
-
+        components:{
+            slider,
+            search,
+            board,
+        },
         data(){
             return{
-                cities: {},
-                regions: {},
+                city: 'Омск',
+                cities: cities,
                 categories: {},
+                user: {},
+                search:{
+                    category: [],
+                    city: '',
+                    value: '',
+                }
             }
         },
-        mounted() {
-            axios.get('/cities')
-                .then(response => {
-                    this.cities = response.data;
-                });
-            axios.get('/regions')
-                .then(response => {
-                    this.regions = response.data;
-                });
+        
+        created() {
             axios.get('/categories')
                 .then(response => {
                     this.categories = response.data;
                 });
+            axios.get('/authUser').then(response => {
+                this.user = response.data;
+            });
+            
+        },
+        
+        methods:{
+            searching() {
+                this.$router.push({ name: 'Searching', params: {
+                    filters: {
+                        category: this.search.category,
+                        value: this.search.value,
+                        city: this.search.city,
+                    }}});
+            }
         }
     }
 </script>
 
-<style>
+<style scoped>
     .board{
         width: 100%;
         margin: 0;
@@ -93,7 +124,6 @@
     
     .map{
         background-color: white;
-        margin-top: 5vh;
         padding: 3%;
     }
 
@@ -119,6 +149,8 @@
 
     .category{
         text-align: center;
+        color: white;
+        text-decoration: none;
     }
 
     .category img{
@@ -144,5 +176,34 @@
 
     .itemMenu{
         height: 50px;
+    }
+
+    #searchBox{
+        padding: 0;
+    }
+
+    .searchInput{
+        height: 50px;
+        float: left;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .searchInput:focus{
+        outline: none;
+        border-bottom: 2px solid #FF6200;
+    }
+
+    #btnSearch{
+        padding: 5px;
+        height: 50px;
+        background-color: #FF6200;
+        border: none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    #btnSearch:hover{
+        background-color: gray;
     }
 </style>

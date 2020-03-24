@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row" id="boardMain">
-            <div v-for="article in articles.data" v-bind:key="article.id" class="article col-sm-3" >
+            <div v-for="article in articles.data" v-bind:key="article.id" class="article col-3">
                 <div id="articleBack">
                     <div class="articleImg">
                         <img :src="article.img">
@@ -44,17 +44,17 @@ export default {
             if (typeof page === 'undefined') {
                 page = 1;
             }
-
-			axios.get('/articles/paginate?page=' + page)
+            
+            axios.get('/articles/paginate?page=' + page)
                 .then(response => {
                     this.articles = response.data;
                 });
-		}
+        }
 	},
 }
 </script>
 
-<style>
+<style scoped>
     #boardMain{
         margin: 0;
         text-align: center;
@@ -73,6 +73,7 @@ export default {
     .article{
         width: 100%;
         min-width: 300px !important;
+        min-height: 600px;
     }
 
     .articleDes{
@@ -82,7 +83,8 @@ export default {
 
     .articleImg img{
         width: 100%;
-        max-height: 40vh;
+        height: 24vh;
+        object-fit: cover;
     }
 
     .articleImg h5{
@@ -123,6 +125,7 @@ export default {
 
     #cat img{
         width: 3em;
+        height: auto !important;
     }
 
     .paginate{

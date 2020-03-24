@@ -12,12 +12,8 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'price', 'category', 'img', 'date', 'author'
+        'name', 'description', 'price', 'category', 'img', 'date', 'user_id', 'city', 'address', 'premium',
     ];
-
-    public function categories(){
-        return $this->belongsTo('App\categories');
-    }
 
     public function comment(){
         return $this->hasMany('App\Comment');
@@ -26,4 +22,5 @@ class Article extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+    
 }

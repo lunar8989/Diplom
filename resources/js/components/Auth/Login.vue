@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="margin-top: 5vh">
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-sm-center">
             <div class="col-6">
                 <div class="card card-default" style="background-color: #1F7B67; font-size: 20px;">
                     <div class="card-header" style="text-align: center; font-size: 35px;">Авторизация</div>
@@ -42,32 +42,28 @@
                 user: {},
             }
         },
-        mounted() {
-            //
-        },
         methods: {
             login() {
                 // get the redirect object
                 var app = this;
-                var redirect = this.$auth.redirect();
-
+                axios.get('/user', { params: { email: app.email } })
+                    .then(response => {
+                        this.user = response.data;
+                    });
+                
                 this.$auth.login({
                     data: {
                         email: app.email,
-                        password: app.password
+                        password: app.password,
                     },
                     success: function() {
                         // handle redirection
                         app.success = true;
-                        axios.get('/user', { params: { email: app.email } })
-                            .then(response => {
-                            this.user = response.data;
-                        });
                         
                         if(this.user.name === 'admin'){
                             this.$router.push({name: 'adminDashboard', params: { userId: this.user.id }});
                         }else{
-                            this.$router.push({name: 'Dashboard', params: { userId: this.user.id }});
+                            this.$router.push({name: 'Dashboard', params: { userId: this.user.id}});
                         }
                     },
                     error: function(res) {

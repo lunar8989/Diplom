@@ -1,23 +1,24 @@
 <template>
-    <div class="container-fluid" @click="searchHide">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12" id="topHeader">
+            <div class="col-12" id="topHeader">
                 <div class="row">
-                    <div id="logo" class="col-sm-1">
-                        <a href="/"><img id="headerLogo" src="../../img/logo.png" alt=""></a>
+                    <div id="logo" class="col-1">
+                        <router-link to="/"><img id="headerLogo" src="../../img/logo.png" alt=""></router-link>
                     </div>
 
-                    <div id="searchHeader" class="col-sm-4">
+                    <div id="searchHeader" class="col-4">
                         <search :searchShow="searchStatus"></search>
                         <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
                             <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
                         </button>
                     </div>
 
-                    <div id="headerMenu" class="col-sm-7">
+                    <div id="headerMenu" class="col-7">
                         <div id="munuPos">
                             <li class="customBtn"><router-link to="/">главная</router-link></li>
-                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link><a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
+                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link>
+                                <a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
                             <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
                         </div>
                     </div>
@@ -38,6 +39,7 @@
         data(){
             return {
                 searchStatus: false,
+                user: {},
             }
         },
         methods: {
@@ -58,19 +60,22 @@
                     }
                 });
             },
-            
-            // searchHide(){
-            //     if (this.searchStatus !== false){
-            //             document.getElementById('searchBox').style.display = 'none';
-            //             document.getElementById('btnShowSearch').style.display = "";
-            //     }
-            // },
         },
     }
 </script>
 
 <style>
-
+    
+    body{
+        width: 100%;
+        color: white;
+        background: url('../../img/backgroundimg.png') repeat-y center center fixed;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: rgba(0,0,0,.8);
+        background-blend-mode: darken;
+    }
+    
     #topHeader{
         height: 110px;
     }

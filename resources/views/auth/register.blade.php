@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('node_modules.vue-yandex-maps.tests.app')
 
 @section('content')
 <div class="container">

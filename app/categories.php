@@ -10,7 +10,5 @@ class categories extends Model
         'name', 'img',
     ];
 
-    public function article(){
-        return $this->hasMany('App\Article');
-    }
+    
 }

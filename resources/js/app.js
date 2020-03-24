@@ -4,7 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
+
+//import components
 
 import 'es6-promise/auto'
 import axios from 'axios'
@@ -14,17 +17,33 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import auth from './auth'
 import router from './router'
+import 'jquery'
+import 'bootstrap-select/dist/js/bootstrap-select'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VSelect from '@alfsnd/vue-bootstrap-select'
+
+
+
 
 window.Vue = Vue;
 
+
+//router
 Vue.router = router;
 Vue.use(VueRouter);
 
-
+//http-axios
 Vue.use(VueAxios, axios);
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
+//auth
 Vue.use(VueAuth, auth);
+
+//bootvue
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -43,14 +62,12 @@ Vue.component('slider-comp', require('./components/Widjets/Slider.vue').default)
 Vue.component('main-comp', require('./components/MainPage.vue').default);
 Vue.component('board-comp', require('./components/Articles/Board.vue').default);
 Vue.component('footer-comp', require('./components/Footer.vue').default);
-Vue.component('add-article', require('./components/Articles/AddArticle.vue').default);
-Vue.component('login-comp', require('./components/Auth/Login').default);
-Vue.component('register-comp', require('./components/Auth/Register').default);
-Vue.component('dashboard-comp', require('./components/User/Dashboard').default);
-Vue.component('article-comp', require('./components/Articles/ArticlePage').default);
 Vue.component('map-comp', require('./components/Widjets/Map').default);
+Vue.component('v-select', VSelect);
 
 Vue.component('pagination', require('laravel-vue-pagination'));
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

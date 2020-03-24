@@ -1,150 +1,157 @@
 <template>
     <div class="container">
-            <div class="row" v-if="article">
-                <div class="col-sm-9 row leftBox">
-                    <div class="col-sm-12 articleTitle">
-                        <h2>{{ article.name }}</h2>
-                        <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
-                        <h3 v-else>Цена не указана.</h3>
-                    </div>
-
-                    <div class="col-sm-12 articleImage">
-                        <ul>
-                            <li><i class="fa fa-bookmark" aria-hidden="true"></i> {{ article.category }}</li>
-                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ article.date }}</li>
-                        </ul>
-                        <img :src="article.img">
-                    </div>
-
-                    <div class="photos col-sm-12 row">
-                        <div class="photo col-sm-3">
-                            <img :src="article.img" alt="" style="width: 100%; margin-top: 3vh;">
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-9 row leftBox">
+                <div class="col-12 articleTitle">
+                    <h2>{{ article.name }}</h2>
+                    <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
+                    <h3 v-else>Цена не указана.</h3>
                 </div>
-
-                <div class="col-sm-3 rightBox row">
-                    <div class="col-sm-12 articleAuthor">
-                        <img src="../../../img/user-icon.png">
-                        <label>{{ user.name }}</label>
-                    </div>
-
-                    <div class="col-sm-12 articleCont">
-                        <p><i class="fa fa-phone" aria-hidden="true"></i> {{ user.phone }}</p>
-                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user.email }}</p>
-                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.address }}</p>
-                    </div>
-
-                    <div class="col-sm-12 articleBtn">
-                        <router-link :to="{ name: 'email', params: { id: user.id } }" class="btn">написать</router-link>
-                        <router-link :to="{ name: 'profile', params: { id: user.id } }" class="btn">профиль</router-link>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-9 articleDes leftBox row">
-                    <ul class="desBtn col-sm-12">
-                        <li @click="des"><i class="fa fa-align-left" aria-hidden="true"></i> описание</li>
-                        <li @click="com"><i class="fa fa-commenting" aria-hidden="true"></i> комментарии</li>
-                        <li @click="map"><i class="fa fa-map-marker" aria-hidden="true"></i> карта</li>
+        
+                <div class="col-12 articleImage">
+                    <ul>
+                        <li><i class="fa fa-bookmark" aria-hidden="true"></i> {{ article.category }}</li>
+                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ article.date }}</li>
                     </ul>
-
-                    <div class="des col-sm-12">
-                        <div class="vidjet" v-if="desStatus">
-                            {{ article.description }}
-                        </div>
-
-                        <div class="vidjet" v-if="comStatus">
-                            <div class="comments">
-                                <div class="comment" v-for="comment in comments" :key="comment.id">
-                                
-                                </div>
-                            </div>
-
-                            <div class="commentsBtn">
-                                <input type="text" v-model="message">
-                                <button class="comBtn">Отправить</button>
-                            </div>
-                        </div>
-
-                        <div class="vidjet" v-if="mapStatus">
-                            <map-comp></map-comp>
-                        </div>
+                    <img :src="article.img">
+                </div>
+        
+                <div class="photos col-sm-12 row">
+                    <div class="photo col-sm-3">
+                        <img :src="article.img" alt="" style="width: 100%; margin-top: 3vh;">
                     </div>
                 </div>
-
-                <div class="col-sm-3 rightBox row" style="margin-top: 3%">
-
+            </div>
+    
+            <div class="col-3 rightBox row">
+                <div class="col-12 articleAuthor">
+                    <img src="../../../img/user-icon.png">
+                    <label>{{ user.name }}</label>
+                </div>
+        
+                <div class="col-12 articleCont">
+                    <p><i class="fa fa-phone" aria-hidden="true"></i> {{ user.phone }}</p>
+                    <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user.email }}</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ article.city }}</p>
+                </div>
+        
+                <div class="col-12 articleBtn">
+                    <router-link :to="{ name: 'email', params: { id: user.id } }" class="btn">написать</router-link>
+                    <router-link :to="{ name: 'profile', params: { id: user.id } }" class="btn">профиль</router-link>
                 </div>
             </div>
-
+        </div>
+    
+        <div class="row">
+            <div class="col-9 articleDes leftBox row">
+                <nav class="desBtn col-12">
+                    <a href="#tab1" class="tabs_item"><i class="fa fa-align-left" aria-hidden="true"></i> описание</a>
+<!--                    <a href="#tab2" class="tabs_item"><i class="fa fa-commenting" aria-hidden="true"></i> комментарии</a>-->
+                    <a href="#tab3" class="tabs_item"><i class="fa fa-map-marker" aria-hidden="true"></i> карта</a>
+                </nav>
+        
+                <div class="des col-12" >
+                    <div class="widget" id="tab1">
+                        {{ article.description }}
+                    </div>
+            
+<!--                    <div class="widget" id="tab2">-->
+<!--                        <div class="comments">-->
+<!--                            <div class="comment" v-for="(comment, index) in comments" :key="index">-->
+<!--                                {{ comment.value }}-->
+<!--                                {{ comment.date }}-->
+<!--                                {{ comment.user }}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                -->
+<!--                       <div class="commentsBtn">-->
+<!--                          <input type="text" v-model="newComment">-->
+<!--                           <button class="comBtn" type="submit" @click="addComment">Отправить</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+            
+                    <div class="widget" id="tab3">
+                        <map-comp :city="article.city"></map-comp>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-3 rightBox row" style="margin-top: 3%">
+    
+            </div>
+        </div>
     </div>
+    
 </template>
 
 <script>
+    
     export default {
-        name: "ArticlePage",
         data(){
             return{
                 article: {},
-                user: null,
+                user: {},
                 id: null,
                 comments: {},
-                desStatus: true,
-                comStatus: false,
-                mapStatus: false,
+                newComment: '',
             }
         },
-
+        watch: {
+            $route(to, from) {
+                if(this.id !== this.$route.params.articleId){
+    
+                    this.getArticle();
+                }
+            }
+        },
         methods:{
-            des() {
-                this.desStatus = true;
-                this.comStatus = false;
-                this.mapStatus = false;
+            addComment(){
+                var data = new FormData;
+    
+                let config = {
+                    header : {
+                        'Content-Type' : 'multipart/form-data'
+                    }
+                };
+    
+                data.append('value', this.newComment);
+                data.append('article_id', this.article.id);
+    
+                axios.post('/addComment', data, config);
             },
-
-            com() {
-                this.desStatus = false;
-                this.comStatus = true;
-                this.mapStatus = false;
-            },
-
-            map() {
-                this.desStatus = false;
-                this.comStatus = false;
-                this.mapStatus = true;
+            getArticle(){
+                this.id = this.$route.params.articleId;
+    
+                axios.get('/articles', { params: {
+                        articleId:  this.id
+                    }}).then(response => {
+                    this.article = response.data;
+                });
+    
+                if(this.article){
+                    axios.get('/userArticle',{ params: {
+                            articleId:  this.id
+                        }}).then(response => {
+                        this.user = response.data;
+                    });
+        
+                    axios.get('/comments',{ params: {
+                            articleId: this.id
+                        }}).then(response => {
+                        this.comments = response.data;
+                    });
+                }
             }
         },
 
-        created(){
-            this.id = this.$route.params.articleId;
-
-            axios.get('/articles', { params: {
-                    id:  this.id
-                }}).then(response => {
-                this.article = response.data;
-            });
-
-            if(this.article){
-                axios.get('/users',{ params: {
-                    id:  1
-                }}).then(response => {
-                    this.user = response.data;
-                });
-
-                axios.get('/comments',{ params: {
-                        id:  1
-                }}).then(response => {
-                    this.comments = response.data;
-                });
-            }
+        mounted(){
+            this.getArticle();
         },
-
     }
 </script>
 
 <style scoped>
+    
     .articleAuthor{
         border-bottom: 1px solid gray;
         padding: 3vh;
@@ -204,12 +211,15 @@
         margin-right: 3%;
     }
 
-    .desBtn li{
-        border-bottom: 2px solid #FF6200;
-    }
-
-    .desBtn li:hover{
-        cursor: pointer;
+    /*.desBtn li{*/
+    /*    border-bottom: 2px solid #FF6200;*/
+    /*}*/
+    
+    
+    .desBtn a{
+        text-decoration: none;
+        color: black;
+        margin-right: 3%;
     }
 
     .rightBox{
@@ -223,11 +233,20 @@
     }
 
     .des{
-        height: 100vh;
+        min-height: 50vh;
+        margin: 0 auto;
     }
 
     .desBtn{
         font-size: 25px;
+        display: flex;
+    }
+    
+    .tabs_item{
+        flex: 0 1 33.333%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .btn{
@@ -263,6 +282,50 @@
         height: 50px;
         background-color: #FF6200;
         color: white;
+    }
+    
+    .widget{
+        position: relative;
+        display: none;
+        padding: 10px;
+    }
+    
+    .widget:before{
+        content: "";
+        width: 33.333%;
+        position: absolute;
+    }
+    
+    .widget:target{
+        display: block;
+    }
+    
+    .widget:nth-child(1):before{
+        border-bottom: 2px solid #FF6200;
+        left: 0;
+    }
+    
+    .widget:nth-child(2):before{
+        border-bottom: 2px solid #FF6200;
+        left: 33.333%;
+    }
+    
+    .widget:nth-child(3):before{
+        border-bottom: 2px solid #FF6200;
+        right: 0;
+    }
+    
+    @media(max-width: 600px){
+        .tabs_item{
+            display: block;
+            width: 100px;
+            padding: 0 5px;
+            white-space: nowrap;
+            text-align: center;
+            overflow: hidden;
+            font-size: 14px;
+            text-overflow: ellipsis;
+        }
     }
 
 </style>
