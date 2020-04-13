@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-9 row leftBox">
-                <div class="col-12 articleTitle">
-                    <h2>{{ article.name }}</h2>
-                    <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
-                    <h3 v-else>Цена не указана.</h3>
+            
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 leftBox">
+                <div class="col-lg-12 articleTitle large">
+                    <span>{{ article.name }}</span>
+                    <span v-if="article.price != ''">{{ article.price }} Руб.</span>
+                    <span v-else>Цена не указана.</span>
                 </div>
         
                 <div class="col-12 articleImage">
@@ -16,16 +17,23 @@
                     <img :src="article.img">
                 </div>
         
-                <div class="photos col-sm-12 row">
+                <div class="photos col-sm-12">
                     <div class="photo col-sm-3">
                         <img :src="article.img" alt="" style="width: 100%; margin-top: 3vh;">
                     </div>
                 </div>
+    
+                <div class="col-12 articleTitle small">
+                    <span>{{ article.name }}</span>
+                    <span v-if="article.price != ''">{{ article.price }} Руб.</span>
+                    <span v-else>Цена не указана.</span>
+                </div>
             </div>
     
-            <div class="col-3 rightBox row">
+            <div class="col-lg-3 rightBox large">
                 <div class="col-12 articleAuthor">
-                    <img src="../../../img/user-icon.png">
+                    <div class="authorImage"><img v-if="user.img === ''" src="../../../img/user-icon.png">
+                    <img v-else :src="user.img" alt=""></div>
                     <label>{{ user.name }}</label>
                 </div>
         
@@ -36,14 +44,46 @@
                 </div>
         
                 <div class="col-12 articleBtn">
-                    <router-link :to="{ name: 'email', params: { id: user.id } }" class="btn">написать</router-link>
-                    <router-link :to="{ name: 'profile', params: { id: user.id } }" class="btn">профиль</router-link>
+                    <a href="#" class="btn" @click="emailModal">написать</a>
                 </div>
+    
+                <b-modal id="modal-scoped" title="Форма связи с автором объявления" style="color: black">
+                        <b-form>
+                            <b-form-group
+                                    id="input-group-1"
+                                    label="Email:"
+                                    label-for="input-1"
+                            >
+                                <b-form-input
+                                        id="input-1"
+                                        v-model="form.email"
+                                        type="email"
+                                        required
+                                        placeholder="Введите вашу почту.."
+                                ></b-form-input>
+                            </b-form-group>
+        
+                            <b-form-group id="input-group-2" label="Ваше сообщение:" label-for="input-2">
+                                <b-form-textarea
+                                        id="input-2"
+                                        v-model="form.message"
+                                        required
+                                        placeholder="Введите сообщение.."
+                                ></b-form-textarea>
+                            </b-form-group>
+                        </b-form>
+        
+                    <template v-slot:modal-footer="{ok}">
+                        <b-button size="sm" variant="success" @click="mailCreate">
+                            Отправить
+                        </b-button>
+                    </template>
+                </b-modal>
             </div>
         </div>
     
         <div class="row">
-            <div class="col-9 articleDes leftBox row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 leftBox articleDes">
                 <nav class="desBtn col-12">
                     <a href="#tab1" class="tabs_item"><i class="fa fa-align-left" aria-hidden="true"></i> описание</a>
 <!--                    <a href="#tab2" class="tabs_item"><i class="fa fa-commenting" aria-hidden="true"></i> комментарии</a>-->
@@ -76,7 +116,7 @@
                 </div>
             </div>
     
-            <div class="col-3 rightBox row" style="margin-top: 3%">
+            <div class="col-lg-3 rightBox large" style="margin-top: 3%">
     
             </div>
         </div>
@@ -94,6 +134,10 @@
                 id: null,
                 comments: {},
                 newComment: '',
+                form: {
+                    message: '',
+                    email: '',
+                }
             }
         },
         watch: {
@@ -135,12 +179,40 @@
                         this.user = response.data;
                     });
         
-                    axios.get('/comments',{ params: {
-                            articleId: this.id
-                        }}).then(response => {
-                        this.comments = response.data;
-                    });
+                    // axios.get('/comments',{ params: {
+                    //         articleId: this.id
+                    //     }}).then(response => {
+                    //     this.comments = response.data;
+                    // });
                 }
+            },
+            emailModal(){
+                this.$bvModal.show('modal-scoped');
+            },
+            mailCreate(){
+                axios.get('/mailSend', { params: {
+                        userEmail: this.user.email,
+                        email: this.form.email,
+                        message: this.form.message,
+                    }}).then(response =>{
+                    this.$bvModal.msgBoxOk('Сообщение успешно отправлено', {
+                        title: 'Успех',
+                        size: 'sm',
+                        buttonSize: 'sm',
+                        okVariant: 'success',
+                        headerClass: 'p-2 border-bottom-0',
+                        footerClass: 'p-2 border-top-0'
+                    }).catch((error) => {
+                        this.$bvModal.msgBoxOk('Произошла ошибка,'+ error +', попробуйте снова', {
+                            title: 'Ошибка',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'danger',
+                            headerClass: 'p-2 border-bottom-0',
+                            footerClass: 'p-2 border-top-0'
+                        })
+                    });
+                });
             }
         },
 
@@ -150,71 +222,70 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    
+    .authorImage{
+        border: 2px solid #FF6200;
+        padding: 5%;
+        border-radius: 15%;
+        img{
+            width: 100%;
+            object-position: top;
+            margin: 0 auto;
+            object-fit: cover;
+            border-radius: 15%;
+        }
+    }
     
     .articleAuthor{
         border-bottom: 1px solid gray;
-        padding: 3vh;
-    }
-
-    .articleAuthor img{
-        width: 70%;
-        margin-left: 15%;
-        margin-right: 15%;
-        border-radius: 50%;
-    }
-    
-    .articleAuthor label{
-        margin-top: 3vh;
-        font-size: 25px;
+        margin: auto 0;
+        margin-bottom: 15px;
+        label{
+            margin-top: 20px;
+            font-size: 25px;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
     }
 
     .articleTitle{
+        display: flex;
         border-bottom: 1px solid gray;
         padding: 3vh;
         font-size: 35px !important;
-    }
-
-    .articleTitle h2{
-        float: left;
-        display: -webkit-box;
-        -webkit-line-clamp: 0.7;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        height: 2.5em;
-        text-overflow: ellipsis;
-        width: 70%;
-    }
-
-    .articleTitle h3{
-        float: right;
+        justify-content: space-between;
+        span{
+            -webkit-line-clamp: 0.7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
     }
 
     .leftBox{
         background-color: white;
         color: black;
         padding: 3%;
-        margin-right: 3%;
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        img{
+            width: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+        ul{
+            list-style-type: none;
+            margin-top: 5px;
+            li{
+                display: inline;
+                margin-right: 3%;
+            }
+        }
     }
-
-    .leftBox img{
-        width: 100%;
-    }
-
-    .leftBox ul{
-        list-style-type: none;
-    }
-    
-    .leftBox ul li{
-        display: inline;
-        margin-right: 3%;
-    }
-
-    /*.desBtn li{*/
-    /*    border-bottom: 2px solid #FF6200;*/
-    /*}*/
-    
     
     .desBtn a{
         text-decoration: none;
@@ -226,6 +297,7 @@
         background-color: white;
         color: black;
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        padding: 15px;
     }
 
     .articleDes{
@@ -253,7 +325,6 @@
         background-color: #FF6200;
         padding: 1vh;
         width: 100%;
-        margin: 3%;
         text-decoration: none;
         color: white;
         font-size: 25px;
@@ -266,55 +337,90 @@
         margin-bottom: 2vh;
     }
 
-    .commentsBtn input[type=text]{
-        width: 80%;
-        height: 50px;
-        float: left;
-    }
-
-    .commentsBtn input[type=text]:focus{
-        outline: none;
-        border-bottom: 2px solid #FF6200;
-    }
-
-    .commentsBtn button{
-        width: 20%;
-        height: 50px;
-        background-color: #FF6200;
-        color: white;
+    .commentsBtn {
+        input[type=text]{
+            width: 80%;
+            height: 50px;
+            float: left;
+            &:focus{
+                outline: none;
+                border-bottom: 2px solid #FF6200;}
+        }
+        button{
+            width: 20%;
+            height: 50px;
+            background-color: #FF6200;
+            color: white;
+        }
     }
     
     .widget{
         position: relative;
         display: none;
         padding: 10px;
+        &:before{
+            content: "";
+            width: 33.333%;
+            position: absolute;}
+        &:target{
+            display: block;
+        }
+        &:nth-child(1):before{
+            border-bottom: 2px solid #FF6200;
+            left: 0;
+        }
+        &:nth-child(2):before{
+            border-bottom: 2px solid #FF6200;
+            left: 33.333%;
+        }
+        &:nth-child(3):before{
+            border-bottom: 2px solid #FF6200;
+            right: 0;
+        }
     }
     
-    .widget:before{
-        content: "";
-        width: 33.333%;
-        position: absolute;
+    .small{
+        display: none;
     }
     
-    .widget:target{
-        display: block;
+    @media(max-width: 992px) {
+        .rightBox{
+            display: none;
+        }
     }
+
+    @media(max-width: 768px) {
     
-    .widget:nth-child(1):before{
-        border-bottom: 2px solid #FF6200;
-        left: 0;
+        .rightBox{
+            display: none;
+        }
+    
+        .userTitle{
+            display: none;
+        }
+    
+        .authorImage{
+            padding: 10px;
+        }
+        
+        .small{
+            display: block;
+        }
+        
+        .articleTitle{
+            &.small{
+                display: flex;
+            }
+            span{
+                font-size: 18px !important;
+            }
+        }
+        
+        .large{
+            display: none;
+        }
     }
-    
-    .widget:nth-child(2):before{
-        border-bottom: 2px solid #FF6200;
-        left: 33.333%;
-    }
-    
-    .widget:nth-child(3):before{
-        border-bottom: 2px solid #FF6200;
-        right: 0;
-    }
-    
+
     @media(max-width: 600px){
         .tabs_item{
             display: block;
@@ -325,6 +431,16 @@
             overflow: hidden;
             font-size: 14px;
             text-overflow: ellipsis;
+        }
+    }
+
+    @media(max-width: 576px){
+        .photo{
+            display: none;
+        }
+        
+        .map{
+            height: 500px;
         }
     }
 

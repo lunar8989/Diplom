@@ -1,7 +1,7 @@
 <template>
     <div class="container" style="margin-top: 5vh">
         <div class="row justify-content-sm-center">
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-6">
                 <div class="card card-default" style="background-color: #1F7B67; font-size: 20px;">
                     <div class="card-header" style="text-align: center; font-size: 35px;">Авторизация</div>
 
@@ -82,16 +82,23 @@
 
 .btn{
     background-color: #FF6200 !important;
-    font-size: 20px;
+    font-size: 23px !important;
  }
+
+.card{
+    background-color: #1F7B67 !important;
+    font-size: 24px !important;
+}
 
 .card-header{
     border-bottom: 1px solid white;
+    text-align: center !important;
+    font-size: 35px !important;
 }
+
 #link{
     background-color: #FF6200;
-    height: 46px;
-    font-size: 20px;
+    font-size: 23px;
     text-decoration: none;
     color: white;
     display: inline-block;
@@ -110,4 +117,22 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     float: right;
 }
+
+    @media(max-width: 500px) {
+        .card{
+            font-size: 14px !important;
+        }
+    
+        .card-header{
+            font-size: 20px !important;
+        }
+    
+        #link{
+            font-size: 14px !important;
+        }
+        
+        .btn{
+            font-size: 14px !important;
+        }
+    }
 </style>

@@ -32,6 +32,7 @@ Route::post('api/filterArticles', 'ArticleController@filter');
 Route::get('api/userArticle', 'ArticleController@user');
 Route::get('api/comments', 'ArticleController@comments');
 Route::get('api/articles', 'ArticleController@find');
+Route::get('api/mailSend', 'MailController@send');
 
 Route::middleware('auth:api')->group(function (){
 	Route::post('api/addArticle', 'ArticleController@create');

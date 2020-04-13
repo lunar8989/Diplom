@@ -45,9 +45,17 @@ class UserController extends Controller
     public function update(Request $request){
     	$user = User::find($request->userId);
     	
-    	$attrs = $request->all();
+    	if (!$request->img){
+    		return response()->json($data = false, 403);
+		}
     	
-		$user->update($attrs);
+		$img = '../storage/' . $request->file('img')->store('uploads', 'public');
+		
+		$user->update([
+			'img' => $img,
+			'name' => $request->name,
+			'phone' => $request->phone,
+		]);
 	
 		return ($user == true) ? response()->json($data = true, 200):
 			response()->json($data = false, 403);

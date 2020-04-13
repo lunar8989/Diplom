@@ -1,27 +1,29 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12" id="topHeader">
-                <div class="row">
-                    <div id="logo" class="col-1">
-                        <router-link to="/"><img id="headerLogo" src="../../img/logo.png" alt=""></router-link>
-                    </div>
-
-                    <div id="searchHeader" class="col-4">
-                        <search :searchShow="searchStatus"></search>
-                        <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
-                            <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
-                        </button>
-                    </div>
-
-                    <div id="headerMenu" class="col-7">
-                        <div id="munuPos">
-                            <li class="customBtn"><router-link to="/">главная</router-link></li>
-                            <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link>
-                                <a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
-                            <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
-                        </div>
-                    </div>
+    <div id="topHeader">
+        <div class="content">
+            <div class="header_body">
+                <div id="logo">
+                    <router-link to="/"><img id="headerLogo" src="../../img/logo.svg" alt=""></router-link>
+                </div>
+    
+                <div id="searchHeader">
+                    <search :searchShow="searchStatus"></search>
+                    <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
+                        <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
+                    </button>
+                </div>
+    
+                <div class="header_burger" v-on:click="burger($event)">
+                    <span></span>
+                </div>
+    
+                <div id="headerMenu">
+                    <ul id="munuPos">
+                        <li class="customBtn" v-if="this.user"><a @click="dashboard" style="cursor: pointer">личный кабинет</a></li>
+                        <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link>
+                            <a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
+                        <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -40,6 +42,15 @@
             return {
                 searchStatus: false,
                 user: {},
+                userSuccess: false,
+            }
+        },
+        updated(){
+            if (this.$auth.check() && this.userSuccess !== true){
+                axios.get('/authUser').then(response => {
+                    this.user = response.data;
+                });
+                this.userSuccess = true;
             }
         },
         methods: {
@@ -60,11 +71,20 @@
                     }
                 });
             },
+    
+            dashboard(){
+                this.$router.push({ name: 'Dashboard', params: { userId: this.user.id}});
+            },
+    
+            burger(event){
+                $('.header_burger, #headerMenu').toggleClass('active');
+                $('body').toggleClass('lock');
+            },
         },
     }
 </script>
 
-<style>
+<style lang="scss">
     
     body{
         width: 100%;
@@ -77,78 +97,226 @@
     }
     
     #topHeader{
-        height: 110px;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        &:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+        }
     }
 
-    #headerLogo{
-        width: 100px;
-        height: 100px;
+    .header_body{
+        width: 100%;
+        position: relative;
+        display: flex;
+        height: 115px;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .content{
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+    #logo{
+        flex: 0 0 7%;
+        position: relative;
+        z-index: 3;
+        a{
+            img{
+            width: 100%;
+            min-width: 70px;}
+        }
+        
     }
 
     #searchHeader{
+        flex: 0 0 23%;
         margin-top: 20px;
+        position: relative;
+        z-index: 3;
     }
 
     #headerMenu{
-        position: relative;
+        flex: 0 0 70%;
         margin-top: 15px;
+        position: relative;
+        z-index: 3;
+        padding: 15px;
+        display: flex;
+        justify-content: flex-end !important;
+        
     }
 
     #munuPos{
-        position: absolute;
-        right: 10px;
-        top: 10px;
+        flex: 0 0 50%;
+        margin: 15px;
         text-align: center;
         color: white;
-
-    }
-    
-    .hideSearch{
-    
+        display: flex;
     }
 
     .customBtn{
-        min-width: 80px;
+        &:first-child{
+            flex: 0 0 25%;
+            white-space: nowrap;
+        }
+        flex: 0 0 20%;
         text-decoration: none;
         color: white;
+        border-radius: 5px;
         height: 50px;
-        float: left;
         list-style-type: none;
-        font-size: 22px;
+        font-size: 1.5rem;
         padding: 5px;
-    }
-
-    .customBtn a{
-        text-decoration: none;
-        color: white;
-    }
-
-    .customBtn:hover{
-        background-color: gray;
-        text-decoration: none;
-        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        &:hover{
+            background-color: gray;
+            text-decoration: none;
+            color: white;}
     }
 
     .addArticle{
+        flex: 0 0 55%;
         text-align: center;
         background-color: #FF6200;
         border-radius: 5px;
         color: white;
         height: 50px;
-        width: 250px;
-        float: left;
-        list-style-type: none;
-        font-size: 23px;
-        margin-left: 10px;
+        font-size: 1.5rem;
         padding: 5px;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a{
+            color: white;
+            text-decoration: none;
+        }
+        &:hover{
+            background-color: gray;
+        }
     }
-
-    .addArticle:hover{
-        background-color: gray;
+    
+    .header_burger{
+        display: none;
     }
-
-    .addArticle a{
-        color: white;
-        text-decoration: none;
+    
+    .header_burger.active {
+        &:before {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        &:after {
+            transform: rotate(-45deg);
+            bottom: 9px;
+        }
+        span{
+            transform: scale(0);
+        }
     }
+    
+    @media(max-width: 767px){
+        body.lock{
+            overflow: hidden;
+        }
+        
+        .header_body{
+            height: 70px;
+        }
+    
+        .header_burger{
+            display: block;
+            position: relative;
+            width: 30px;
+            height: 20px;
+            z-index: 3;
+            &:before, &:after{
+                content: '';
+                background-color: black;
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                left: 0;
+                transition: all 0.3s ease 0s;
+            }
+            &:before{
+                top: 0;
+            }
+            &:after{
+                bottom: 0;
+            }
+            span{
+                position: absolute;
+                background-color: black;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                top: 9px;
+                transition: all 0.3s ease 0s;
+            }
+        }
+    
+        #logo{
+            position: relative;
+            z-index: 3;
+        }
+    
+        #headerMenu{
+            position: fixed;
+            top: -120%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease 0s;
+            background-color: #2CAF93;
+            z-index: 3;
+            overflow: auto;
+            margin-top: 70px;
+            &.active{
+                top: 0;
+            }
+        }
+    
+        #munuPos{
+            flex: 0 0 100%;
+            display: block;
+            font-size: 30px;
+            float: none
+        }
+    
+        .customBtn{
+            width: 70%;
+            margin: 0 auto;
+        }
+    
+        .addArticle{
+            width: 70%;
+            margin: 0 auto;
+        }
+    
+        #topHeader{
+            background-color: #1F7B67;
+        }
+    
+        #searchHeader{
+            display: none;
+        }
+    
+    }
+    
 </style>

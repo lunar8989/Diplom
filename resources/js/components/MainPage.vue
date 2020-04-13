@@ -14,12 +14,12 @@
             <div class="col-12">
                 <div id="settingsBarHeader" class="container ">
                     <div class="row no-gutters" style="padding: 2%">
-                        <div class="col-4 itemMenu"><select-comp v-model="search.category" :data="categories"></select-comp></div>
-                        <div class="col-4 itemMenu"><select-comp v-model="search.city" :data="cities"></select-comp></div>
-                        <div id="searchBox" class="col-4">
+                        <div class="col-12 col-md-4 itemMenu"><select-comp v-model="search.category" :data="categories"></select-comp></div>
+                        <div class="col-12 col-md-4 itemMenu"><select-comp v-model="search.city" :data="cities"></select-comp></div>
+                        <div id="searchBox" class="col-12 col-md-4">
                             <input class="col-10 searchInput"  type="text" v-model="search.value" placeholder="Поиск..">
                             <button @click="searching" class="col-2" id="btnSearch" type="button">
-                                <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
+                                <img src="../../img/search.svg" alt="">
                             </button>
                         </div>
                     </div>
@@ -29,36 +29,39 @@
             <div id="categoryHeader" class="col-12">
                 <div class="container">
                     <div class="row">
-                        <div class="col-1"></div>
-                        <div v-for="cat in categories" :key="cat.id" v-if="cat.id < 5" class="col-2 category">
+                        <div class="col-md-1"></div>
+                        <div v-for="cat in categories" :key="cat.id" v-if="cat.id < 5" class="col-md-2 category large">
                             <router-link :to="{ name: 'Searching', params: { filters: { category:  [cat.name], value: '', city: '' }}}"><img :src=cat.img /></router-link>
                             <p>{{ cat.name }}</p>
                         </div>
-                        <div class="col-2 category">
+                        <div v-for="cat in categories" :key="cat.id+5" v-if="cat.id < 3" class="col-sm-4 category small">
+                            <router-link :to="{ name: 'Searching', params: { filters: { category:  [cat.name], value: '', city: '' }}}"><img :src=cat.img /></router-link>
+                            <p>{{ cat.name }}</p>
+                        </div>
+                        <div class="col-sm-4 col-md-2 category">
                             <router-link :to="{ name: 'Dashboard', params: { userId: this.user.id } }"><img src="../../img/profile.svg"></router-link>
                             <p>личный кабинет</p>
                         </div>
-                        <div class="col-1"></div>
+                        <div class="col-md-1"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="sliderPremium row">
+        <div class="row sliderPremium">
             <h1 class="sliderPremiumTitle">Premium объявления</h1>
             <slider></slider>
         </div>
 
         <div class="row board">
             <h1 class="sliderPremiumTitle">Последние объявления</h1>
-            <board></board>
+            <board :filters="this.filter"></board>
         </div>
         
         <div class="row map">
             <h1 class="sliderPremiumTitle">Объявления на карте</h1>
-            <map-comp :city="city" style="border: 1px solid black"></map-comp>
+            <map-comp :city="city" style="border: 1px solid black; height: 500px"></map-comp>
         </div>
-        
     </div>
 </template>
 
@@ -82,6 +85,12 @@
                 categories: {},
                 user: {},
                 search:{
+                    category: [],
+                    city: '',
+                    value: '',
+                },
+                filter: {
+                    price: 100000,
                     category: [],
                     city: '',
                     value: '',
@@ -113,13 +122,13 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .board{
         width: 100%;
         margin: 0;
         background-color: white;
         margin-top: 10vh;
-        padding: 15vh;
+        padding: 5%;
     }
     
     .map{
@@ -145,20 +154,22 @@
 
     #categoryHeader{
         color: white;
+        padding: 10px;
     }
 
     .category{
         text-align: center;
         color: white;
         text-decoration: none;
-    }
-
-    .category img{
-        width: 40%;
-    }
-
-    .category:hover{
-        background-color: #FF6200;
+        img{
+            width: 40%;
+        }
+        &:hover{
+            background-color: #FF6200;
+        }
+        &.small{
+            display: none;
+        }
     }
 
     .sliderPremium{
@@ -183,7 +194,7 @@
     }
 
     .searchInput{
-        height: 50px;
+        height: 100%;
         float: left;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
@@ -196,14 +207,43 @@
 
     #btnSearch{
         padding: 5px;
-        height: 50px;
+        min-height: 50px;
         background-color: #FF6200;
         border: none;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
+        img{
+            width: 70%;
+            margin: 0 auto;
+        }
     }
 
     #btnSearch:hover{
         background-color: gray;
+    }
+
+    @media(max-width: 767px) {
+        .category{
+            &.small{
+                display: block;
+            }
+            &.large{
+                display: none;
+            }
+        }
+    
+        .sliderPremiumTitle{
+            font-size: 24px;
+        }
+    }
+    
+    @media(max-width: 576px) {
+        .category{
+            display: none !important;
+        }
+        
+        .sliderPremium{
+            display: none;
+        }
     }
 </style>

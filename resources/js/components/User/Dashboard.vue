@@ -1,21 +1,107 @@
 <template>
     <div class="container">
-        <div class="row" v-if="this.user">
-            <div class="col-9 leftBox row">
+        <div class="row" style="margin: 0 !important;" v-if="this.user">
+            <div class="col-12 col-sm-12 topBox">
+                <div class="userImage">
+                    <img :src="'../'+user.img" alt="Avatar">
+                </div>
+                <div class="topTitle">
+                    <span>{{ user.name }}</span>
+                    
+                    <div class="small">
+                        <i class="fa fa-cog fa-2x" @click="updateUserModal"></i>
+                    </div>
+                </div>
+                <div class="top_controls_user large">
+                    <b-dropdown variant="warning" right text="Изменить данные" style="padding: 0 !important; height: 50px;" >
+                        <b-dropdown-form>
+                            <b-form-group label="Название" label-for="dropdown-form-username">
+                                <b-form-input
+                                        id="dropdown-form-username"
+                                        size="lg"
+                                        v-model="user.name"
+                                        :value="user.name"
+                                ></b-form-input>
+                            </b-form-group>
+                
+                            <b-form-group label="Телефон" label-for="dropdown-form-phone">
+                                <b-form-input
+                                        id="dropdown-form-phone"
+                                        size="lg"
+                                        type="tel"
+                                        :value="user.phone"
+                                        v-model="user.phone"
+                                ></b-form-input>
+                            </b-form-group>
+                
+                            <b-form-group label="Фото профиля" label-for="dropdown-form-photo">
+                                <b-form-file
+                                        id="dropdown-form-photo"
+                                        accept=".jpg, .png, .jpeg"
+                                        :file-name-formatter="formatNames"
+                                        @change="getImg($event)"
+                                ></b-form-file>
+                            </b-form-group>
+                
+                            <b-button variant="primary" size="sm" @click="updateUser">Обновить</b-button>
+                        </b-dropdown-form>
+                    </b-dropdown>
+                </div>
+            </div>
+    
+            <b-modal id="modal-scoped" title="Обновление данных профиля" style="color: black">
+                <b-form>
+                    <b-form-group label="Название" label-for="dropdown-form-username">
+                        <b-form-input
+                                id="dropdown-form-username"
+                                size="lg"
+                                v-model="user.name"
+                                :value="user.name"
+                        ></b-form-input>
+                    </b-form-group>
+    
+                    <b-form-group label="Телефон" label-for="dropdown-form-phone">
+                        <b-form-input
+                                id="dropdown-form-phone"
+                                size="lg"
+                                type="tel"
+                                :value="user.phone"
+                                v-model="user.phone"
+                        ></b-form-input>
+                    </b-form-group>
+    
+                    <b-form-group label="Фото профиля" label-for="dropdown-form-photo">
+                        <b-form-file
+                                id="dropdown-form-photo"
+                                accept=".jpg, .png, .jpeg"
+                                :file-name-formatter="formatNames"
+                                @change="getImg($event)"
+                        ></b-form-file>
+                    </b-form-group>
+                </b-form>
+        
+                <template v-slot:modal-footer="{ok}">
+                    <b-button size="md" variant="success" @click="updateUser">
+                        Обновить
+                    </b-button>
+                </template>
+            </b-modal>
+            
+            <div class="col-12 col-sm-12 col-md-9 leftBox">
                 <div class="col-12">
                     <div class="row userTitle">
-                        <h1>{{ user.name }}</h1>
+                        <span>{{ user.name }}</span>
                     </div>
-                    <h2 class="row" style="height: 100px; margin-top: 50px"><span style="color: #FF6200;">|</span>Объявления</h2>
-    
-    
+                    <h2 class="row" style="height: 100px; font-size: 30px; margin-top: 50px"><span style="color: #FF6200;">|</span>Объявления</h2>
+                    
                     <div class="articlesBlock row" v-for="(article, index) in articles" :key="index">
-                        <h5 class="col-6">{{ article.name }}</h5>
-                        <h5 class="col-3">{{ article.date }}</h5>
-                        <button class="col-1 btn btn-info" type="submit" @click="articlePage(article.id)"><i class="fa fa-home fa-2x" aria-hidden="true"></i></button>
-                        <b-dropdown size="lg" ref="dropdown" variant="warning" class="col-1" style="padding: 0 !important;" no-caret>
+                        <span class="col-8 col-sm-6">{{ article.name }}</span>
+                        <span class="col-4 col-sm-3">{{ article.date }}</span>
+                        <button class="col-sm-1 btn btn-info large_btn" type="submit" @click="articlePage(article.id)"><img src="../../../img/home.svg" alt=""></button>
+                        <button class="col-2 offset-6 btn btn-info small_btn" type="submit" @click="articlePage(article.id)"><img src="../../../img/home.svg" alt=""></button>
+                        <b-dropdown size="lg" ref="dropdown" variant="warning" class="col-2 col-sm-1" style="padding: 0 !important;" no-caret>
                             <template v-slot:button-content>
-                                <b-icon icon="gear-fill" class="bg-warning" style="width: 30px; height: 30px; color: black"></b-icon>
+                                <b-icon icon="gear-fill" class="bg-warning" style="min-width: 15px; min-height: 15px"></b-icon>
                             </template>
                             <b-dropdown-form>
                                 <b-form-group label="Название" label-for="dropdown-form-name" @submit.stop.prevent>
@@ -49,21 +135,19 @@
                                 <b-button variant="primary" size="sm" @click="onClick(article.id, article.name, article.description, article.price)">Обновить</b-button>
                             </b-dropdown-form>
                         </b-dropdown>
-                        <button class="col-1 btn btn-danger" type="submit" @click="remove(article.id, index)"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
-                        
+                        <button class="col-2 col-sm-1 btn btn-danger" type="submit" @click="remove(article.id, index)"><img src="../../../img/times.svg" alt=""></button>
                     </div>
                 </div>
             </div>
     
             <div class="rightBox col-3">
                 <div class="row userImage">
-                    <img v-if="user.img = ''" :src="user.img">
-                    <img v-else src="../../../img/user-icon.png">
+                    <img :src="'../'+user.img" alt="Avatar">
                 </div>
                 <div class="row controlsUser">
-                    <b-dropdown variant="warning" text="Изменить данные" class="col-12" style="padding: 0 !important;" >
+                    <b-dropdown variant="warning" text="Изменить данные" class="col-12" style="padding: 0 !important; height: 60px">
                         <b-dropdown-form>
-                            <b-form-group label="Название" label-for="dropdown-form-username" @submit.stop.prevent>
+                            <b-form-group label="Название" label-for="dropdown-form-username">
                                 <b-form-input
                                         id="dropdown-form-username"
                                         size="lg"
@@ -85,13 +169,13 @@
                             <b-form-group label="Фото профиля" label-for="dropdown-form-photo">
                                 <b-form-file
                                         id="dropdown-form-photo"
-                                        size="lg"
+                                        accept=".jpg, .png, .jpeg"
                                         :file-name-formatter="formatNames"
                                         @change="getImg($event)"
                                 ></b-form-file>
                             </b-form-group>
             
-                            <b-button variant="primary" size="sm" @click="updateUser(user.id, user.name, user.phone)">Обновить</b-button>
+                            <b-button variant="primary" size="sm" @click="updateUser">Обновить</b-button>
                         </b-dropdown-form>
                     </b-dropdown>
                 </div>
@@ -110,6 +194,7 @@
                 user: {},
                 articles: {},
                 success: false,
+                img: [],
                 FormData: new FormData(),
             }
         },
@@ -143,53 +228,16 @@
             articlePage(id){
                 this.$router.push({ name: 'Article', params: { articleId: id }})
             },
-    
-            formatNames(files) {
-                if (files.length === 1) {
-                    return files[0].name
-                } else {
-                    return `${files.length} files selected`
-                }
-            },
             
             getUser(){
                 axios.get('/users', { params: { userId: this.$route.params.userId } })
                     .then(response => { this.user = response.data; });
             },
     
-            getImg(e){
-                let input = e.target;
-                if (input.files[0]) {
-                    if (input.files.length <= 5) {
-                
-                        for (let i = 0; i < input.files.length; i++) {
-                            let reader = new FileReader();
-                    
-                            reader.onload = e => {
-                                this.img.push(e.target.result);
-                            };
-                    
-                            reader.readAsDataURL(input.files[i]);
-                    
-                            Array.from(Array(e.target.files.length).keys())
-                                .map(x => {
-                            
-                                    this.FormData
-                                        .append('img',
-                                            e.target.files[x]);
-                            
-                                });
-                        }
-                    } else {
-                        alert('You can upload up to 5 images');
-                    }
-                }
-            },
-    
-            updateUser(id, name, phone){
-                this.FormData.append('userId', id);
-                this.FormData.append('name', name);
-                this.FormData.append('phone', phone);
+            updateUser(e){
+                this.FormData.append('userId', this.user.id);
+                this.FormData.append('name', this.user.name);
+                this.FormData.append('phone', this.user.phone);
     
                 let config = {
                     header : {
@@ -199,12 +247,60 @@
     
                 axios.post('/updateUser', this.FormData, config)
                     .then((response) => {
-                        this.getUser();
+                        this.$bvModal.msgBoxOk('Данные обновлены успешно.', {
+                            title: 'Успех',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'success',
+                            headerClass: 'p-2 border-bottom-0',
+                            footerClass: 'p-2 border-top-0'
+                        })
                     })
                     .catch((error) => {
-                        console.log(error);
+                        this.$bvModal.msgBoxOk('Данные не удалось обновить, попробуйте снова', {
+                            title: 'Ошибка',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'danger',
+                            headerClass: 'p-2 border-bottom-0',
+                            footerClass: 'p-2 border-top-0'
+                        })
                     });
-            }
+            },
+            
+            formatNames(files) {
+                if (files.length === 1) {
+                    return files[0].name
+                } else {
+                    return `${files.length} files selected`
+                }
+            },
+            
+            getImg(e){
+                let input = e.target;
+                if (input.files[0]) {
+                    for (let i = 0; i < input.files.length; i++) {
+                        let reader = new FileReader();
+        
+                        reader.onload = e => {
+                            this.img.push(e.target.result);
+                        };
+        
+                        reader.readAsDataURL(input.files[i]);
+        
+                        Array.from(Array(e.target.files.length).keys())
+                            .map(x => {
+                
+                                this.FormData.append('img', e.target.files[x]);
+                
+                            });
+                    }
+                }
+            },
+            
+            updateUserModal(){
+                this.$bvModal.show('modal-scoped');
+            },
         },
         
         
@@ -212,20 +308,18 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     
     .userImage{
         border: 2px solid #FF6200;
-        padding: 3vh;
-        max-height: 40vh;
         border-radius: 15%;
-    }
-    
-    .userImage img{
-        width: 70%;
-        margin-left: 15%;
-        margin-right: 15%;
-        border-radius: 50%;
+        padding: 5%;
+        img{
+            width: 100%;
+            margin: 0 auto;
+            object-position: top;
+            object-fit: cover;
+            border-radius: 15%;}
     }
     
     .userTitle{
@@ -233,17 +327,18 @@
         border-bottom: 1px solid gray;
         padding: 3vh;
         font-size: 35px !important;
-    }
-    
-    .userTitle h2{
-        float: left;
-        display: -webkit-box;
-        -webkit-line-clamp: 0.7;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        height: 2.5em;
-        text-overflow: ellipsis;
-        width: 70%;
+        span{
+            float: left;
+            -webkit-line-clamp: 0.7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.5em;
+            text-overflow: ellipsis;
+            width: 70%;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
     }
     
     .leftBox{
@@ -273,22 +368,29 @@
         background-color: #2CAF93;
         min-height: 70px;
         margin-bottom: 20px;
-    }
-    
-    .articlesBlock h5{
-        margin: auto 0;
-        float: left;
-        display: -webkit-box;
-        -webkit-line-clamp: 0.7;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 70%;
+        span{
+            margin: auto 0;
+            float: left;
+            -webkit-line-clamp: 0.7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 70%;
+            &::first-letter{
+                text-transform: uppercase;
+            }
+        }
     }
     
     .btn{
         border: 1px solid black;
         border-radius: 10px;
+        max-height: 50px;
+        img{
+            width: 100%;
+            object-position: top;
+            object-fit: cover;
+        }
     }
     
     .controlsUser{
@@ -298,5 +400,139 @@
     
     .dropdown-toggle{
         height: 45px !important;
+    }
+    
+    .topBox{
+        display: none;
+        background-color: #1F7B67;
+        color: black;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        padding: 3%;
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+        img{
+            flex: 0 0 30%;
+        }
+    }
+    
+    .topTitle{
+        flex: 0 0 50%;
+        padding: 0 0 0 15px;
+        span{
+            font-size: 20px;
+            -webkit-line-clamp: 0.7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 1em;
+            text-overflow: ellipsis;
+            &::first-letter{
+                text-transform: uppercase !important;
+            }
+        }
+    }
+    
+    .top_controls_user{
+        flex: 0 0 20%;
+    }
+    
+    .small, .small_btn{
+        display: none;
+    }
+    
+    @media(max-width: 1080px){
+        .btn{
+            padding: 0 !important;
+            img{
+                width: 70%;
+            }
+        }
+    }
+
+    @media(max-width: 768px) {
+        .topBox{
+            display: flex;
+            align-items: center;
+        }
+        
+        .rightBox{
+            display: none;
+        }
+        
+        .leftBox{
+            border-radius: 0 0 15px 15px;
+        }
+    
+        .userTitle{
+            display: none;
+        }
+        
+        .userImage{
+            padding: 10px;
+        }
+    }
+
+    @media(max-width: 576px) {
+        .btn{
+            padding: 5px !important;
+            max-height: 60px;
+            img{
+                width: 50%;
+            }
+        }
+    
+        .dropdown-toggle{
+            max-height: 60px !important;
+        }
+    
+        .small_btn{
+            display: block;
+        }
+    
+        .large_btn{
+            display: none;
+        }
+    }
+
+    @media(max-width: 450px) {
+        .top_controls_user{
+            width: 100%;
+            text-align: center;
+        }
+    
+        .topTitle{
+            width: 100%;
+            text-align: center;
+            margin: 0 0 20px 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .topBox{
+            display: block;
+            img{
+                width: 100%;
+            }
+        }
+    
+        .userImage{
+            width: 50%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+    
+        .small{
+            display: block;
+        }
+    
+        .large{
+            display: none;
+        }
+    
+        .btn{
+            img{
+                width: 70%;
+            }
+        }
     }
 </style>

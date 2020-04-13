@@ -7,8 +7,8 @@
                         <div class="slideImg">
                             <img :src=article.img alt="">
                             <h5><strong>{{ article.date }}</strong></h5>
-                            <div id="cat"><a><img src='/images/shop.svg'></a></div>
                         </div>
+                        <div id="cat"><a><img src='/images/shop.svg'></a></div>
                         <div class="slideDes">
                             <h2>{{ article.name }}</h2>
                             <p>{{ article.description }}</p>
@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
     .swiper-button-next, .swiper-button-prev{
         color: #FF6200;
@@ -67,7 +67,6 @@ export default {
         padding: 15px;
     }
     
-
     .slide{
         width: 100%;
         min-width: 300px !important;
@@ -80,16 +79,17 @@ export default {
         text-align: left;
     }
 
-    .slideImg img{
-        width: 100%;
-        height: 24vh;
-        object-fit: cover;
-    }
-
-    .slideImg h5{
-        text-align: right;
-        margin-right: 3%;
-        margin-top: -25px;
+    .slideImg{
+        img{
+            max-width: 100%;
+            object-position: top;
+            object-fit: cover;
+        }
+        h5{
+            text-align: right;
+            margin-right: 3%;
+            margin-top: -25px;
+        }
     }
 
     .slideDes p{
@@ -123,7 +123,7 @@ export default {
     }
 
     #cat img{
-        width: 3em;
+        width: 100%;
         height: auto !important;
     }
 </style>

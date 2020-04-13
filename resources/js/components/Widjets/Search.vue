@@ -4,7 +4,7 @@
             <div id="searchBox" class="col-12" v-show="searchShow">
                 <input class="col-10 searchInput"  type="text" v-model="value" placeholder="Поиск..">
                 <button @click="searching" class="col-2" id="btnSearch" type="button">
-                    <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
+                    <img src="../../../img/search.svg" alt="">
                 </button> 
             </div>
         </div>
@@ -29,7 +29,7 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
     #searchBox{
         padding: 0;
@@ -38,8 +38,8 @@
     .searchInput{
         height: 50px;
         float: left;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
     }
 
     .searchInput:focus{
@@ -54,6 +54,10 @@
         border: none;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
+        img{
+            width: 70%;
+            margin: auto auto;
+        }
     }
 
     #btnSearch:hover{

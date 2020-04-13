@@ -38,6 +38,34 @@
             margin: 0;
         }
 
+        *,*:before,*:after{
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        :focus,:active{outline: none;}
+        a:focus,a:active{outline: none;}
+
+        html,body{
+            height: 100%;
+            width: 100%;
+            font-size: 100%;
+            line-height: 1;
+            font-size: 14px;
+            -ms-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        input,button,textarea{font-family:inherit;}
+
+        input::-ms-clear{display: none;}
+        button{cursor: pointer;}
+        button::-moz-focus-inner {padding:0;border:0;}
+        ul li{list-style: none; !important;}
+        img{vertical-align: top;}
+        
         .py-4{
             min-height: 84.6vh;
         }
@@ -74,8 +102,10 @@
         .dropdown-menu{
             min-width: 20rem;
         }
-        
-        
+
+        .modal-content{
+            color: #000 !important;
+        }
     </style>
 </head>
 <body>
@@ -85,11 +115,9 @@
             <header-comp></header-comp>
         </keep-alive>
         
-
         <main class="py-4">
             @yield('content')
         </main>
-
         
         <footer-comp></footer-comp>
         

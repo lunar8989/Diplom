@@ -91,9 +91,9 @@
                 this.FormData.append('name', this.name);
                 this.FormData.append('description', this.description);
                 this.FormData.append('price', this.price);
-                this.FormData.append('category', this.category.name);
+                this.FormData.append('category', this.category);
                 this.FormData.append('address', this.address);
-                this.FormData.append('city', this.city.name);
+                this.FormData.append('city', this.city);
     
                 let config = {
                     header : {
@@ -133,10 +133,7 @@
                             Array.from(Array(e.target.files.length).keys())
                                 .map(x => {
             
-                                    this.FormData
-                                        .append('img',
-                                            e.target.files[x]);
-            
+                                    this.FormData.append('img', e.target.files[x]);
                                 });
                         }
                     } else {

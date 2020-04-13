@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\categories;
-use Dotenv\Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\all;

@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
-        <div class="row form-group">
-            <select  class="selectpicker mySelect col-12 " data-title="выберите из списка" data-size="5" data-live-search="true" v-model="selected">
+        <div class="row form-group" style="height: 50px; margin: 0;">
+            <select  class="selectpicker mySelect col-12 " data-title="выберите из списка" data-size="5" data-live-search="true" v-model="selected" style="height: 50px">
                 <option class="myOption" v-for="item in data" :key="item.id" :value=item.name>{{ item.name }}</option>
             </select>
         
@@ -20,6 +20,7 @@
         mounted(){
             $(document).ready(function() {
                 $('.mySelect').selectpicker ();
+                $('.dropdown-toggle').addClass('my_height');
             });
         },
         updated () {
@@ -43,7 +44,9 @@
         background-color: #FF6200;
         color: white;
     }
-    
-    
+
+    .my_height{
+        height: 50px !important;
+    }
 
 </style>

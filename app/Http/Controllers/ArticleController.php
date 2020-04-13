@@ -12,7 +12,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $data = Article::paginate(12);
+        $data = Article::orderBy('date', 'desc')->paginate(12);
         return response()->json($data);
     }
 
@@ -44,15 +44,15 @@ class ArticleController extends Controller
             'description' => 'required',
             'category' => 'required',
 			'img' => 'required',
-			'price' => 'required',
 			'address' => 'required',
+			'city' => 'required',
         ]);
 
         if($validator->fails()) {
 			return response()->json(['message' => $validator->errors()->all()], "422");
         }
 	
-			$img = '../storage/' . $request->file('img')->store('uploads', 'public');
+        $img = '../storage/' . $request->file('img')->store('uploads', 'public');
 	
 		$article = Article::create([
             'name' => $request->name,
@@ -62,6 +62,7 @@ class ArticleController extends Controller
             'category' => $request->category,
 			'date' => Carbon::now(),
 			'address' => $request->address,
+			'city' => $request->city,
         ]);
 
         $article->user()->associate($user->id);
@@ -125,7 +126,7 @@ class ArticleController extends Controller
 			$article->where('city', $request->city)->get();
 		}
 		
-		$data = $article->paginate(12);
+		$data = $article->orderBy('date', 'desc')->paginate(12);
 	
     	if (!$data){
     		return response()->json('err', 403);

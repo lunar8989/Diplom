@@ -28,7 +28,6 @@ import VSelect from '@alfsnd/vue-bootstrap-select'
 
 window.Vue = Vue;
 
-
 //router
 Vue.router = router;
 Vue.use(VueRouter);

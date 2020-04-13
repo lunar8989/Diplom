@@ -2,8 +2,10 @@
 
 @section('content')
     
-    <keep-alive>
-        <router-view></router-view>
-    </keep-alive>
-
+    <transition>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+    
 @endsection
