@@ -1,8 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row" id="boardMain">
-            <div v-for="(article, index) in articles.data" :key="index"
-                 class="article col-12 col-sm-6 col-md-4 col-lg-3">
+            <div v-for="(article, index) in articles.data" :key="index" class="article col-12 col-sm-6 col-md-4" :class="{ 'col-lg-3': column }">
                 <div id="articleBack">
                     <div class="articleImg">
                         <img :src="article.img">
@@ -18,7 +17,7 @@
                         <h2>{{ article.name }}</h2>
                         <hr style="">
                         <p>{{ article.description }}</p>
-                        <h3 v-if="article.price != ''">{{ article.price }} Руб.</h3>
+                        <h3 v-if="article.price !== ''">{{ article.price }} Руб.</h3>
                         <h3 v-else>Цена не указана.</h3>
                         <router-link :to="{ name: 'Article', params: { articleId: article.id } }">подробнее</router-link>
                     </div>
@@ -28,7 +27,6 @@
             <div class="paginate">
                 <pagination :data="articles" @pagination-change-page="getResults"></pagination>
             </div>
-            
         </div>
     </div>
 </template>
@@ -36,7 +34,15 @@
 <script>
 
 export default {
-    props: ['filters'],
+    props: {
+        'filters':{
+            type: Object,
+        },
+        'column':{
+            type: Boolean,
+            default: true,
+        }
+    },
     data() {
         return{
             articles: {},
@@ -47,6 +53,7 @@ export default {
                 city: '',
                 value: '',
             },
+            columns: true,
             FormData: new FormData(),
         }
     },
@@ -108,6 +115,7 @@ export default {
                     this.filter.price = val.price;
                 }
             }
+            this.columns = this.column;
             return this.filter;
         },
 	},

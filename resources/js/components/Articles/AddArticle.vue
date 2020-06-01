@@ -1,61 +1,56 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <div class="row" id="addArticle">
             <form class="formArticle col" enctype="multipart/form-data" method="post" autocomplete="off" @submit.prevent="add">
-                <label class="col-12 labelArticleForm">Добавить новое объявление</label>
-                <hr class="hrArticleForm">
-
-                <div class="form-row">
-                    <div class="col-12">
-                        <label>Название</label>
-                        <input id="name" type="text" class="form-control inputArticle"  placeholder="Название" required v-model="name">
-                    </div>
+                
+                <div class="form_row article_category">
+                    <span>Категория</span>
+                    <select-comp class="article_select" v-model="category" :data="categories" placeholder="выберите категорию"></select-comp>
+                </div>
+                <hr style="background-color: #fff;">
+                <center><h1 class="title">Объявление</h1></center>
+                <hr style="background-color: #fff;">
+                <div class="form_row article_name">
+                    <span>Название объявления</span>
+                    <input id="name" type="text" class="form-control inputArticle"  placeholder="Название" required v-model="name">
                 </div>
                 
-                <div class="form-row">
-                    <div class="col-12" style="padding: 5px">
-                        <label>Описание</label>
-                        <b-form-textarea v-model="description" debounce="500" rows="3" max-rows="5"></b-form-textarea>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="col-12">
-                        <label>Категория</label>
-                        <select-comp v-model="category" :data="categories"></select-comp>
-                    </div>
+                <div class="form_row article_des">
+                    <span>Описание объявления</span>
+                    <b-form-textarea class="textarea" v-model="description" debounce="500" rows="3" max-rows="5"></b-form-textarea>
                 </div>
 
-                <hr class="hrArticleForm">
-
-                <div class="form-row">
-                    <div class="col-12">
-                        <label>Стоимость</label>
+                <div class="form_row article_price">
+                    <span>Цена</span>
+                    <div class="price">
                         <input type="number" id="price" class="form-control inputArticle" placeholder="Стоимость" v-model="price">
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="col-12" >
-                        <label>Город</label>
-                        <select-comp v-model="city" :data="cities"></select-comp>
+                        <b-form-checkbox class="check" v-model="price" size="lg" value="0">Без цены, отдам в добрые руки</b-form-checkbox>
                     </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="col-12">
-                        <label>Адрес</label>
-                        <input type="text" id="address" class="form-control inputArticle" placeholder="Адрес" v-model="address">
-                    </div>
+                <div class="form_row article_photo">
+                    
+                    <span>Загрузить фото</span>
+                    <uploader
+                            class="photo"
+                            v-model="fileList"
+                            name="upload"
+                            title="Фото"
+                            limit="1"
+                            :headers="{
+                              'custom-header': 'custom-info',
+                            }"
+                            :autoUpload="false"
+                            @on-change="onChange"
+                            @on-cancel="onCancel"
+                            @on-success="onSuccess"
+                            @on-error="onError"
+                            @on-delete="onDelete"
+                    ></uploader>
                 </div>
-                
-                <div class="form-row">
-                    <div class="col-12">
-                        <label>Изображение</label>
-                        <b-form-file multiple :file-name-formatter="formatNames" @change="getImg($event)"></b-form-file>
-                    </div>
+                <div class="form_row button">
+                    <button class="btn btn-primary article_btn" type="submit">Опубликовать</button>
                 </div>
-                <button class="btn btn-primary" type="submit">Добавить объявление</button>
             </form>
         </div>
     </div>
@@ -63,20 +58,21 @@
 
 <script>
     
-    var cities = require('../../cities');
+    import Uploader from "vux-uploader-component";
     
     export default {
+        components: {
+            Uploader,
+        },
         data() {
             return {
-                cities: cities,
                 categories: {},
                 name: '',
                 description: '',
                 img: [],
                 category: '',
                 price: '',
-                address: '',
-                city: '',
+                fileList: [],
                 FormData: new FormData(),
             }
         },
@@ -92,8 +88,6 @@
                 this.FormData.append('description', this.description);
                 this.FormData.append('price', this.price);
                 this.FormData.append('category', this.category);
-                this.FormData.append('address', this.address);
-                this.FormData.append('city', this.city);
     
                 let config = {
                     header : {
@@ -109,54 +103,113 @@
                         console.log(error);
                     });
             },
-            formatNames(files) {
-                if (files.length === 1) {
-                    return files[0].name
-                } else {
-                    return `${files.length} files selected`
-                }
+            onChange(fileItem, fileList) {
+                console.log('on-change: ', fileItem, fileList);
+                this.FormData.append('img', fileItem.blob);
             },
-            getImg(e){
-                let input = e.target;
-                if (input.files[0]) {
-                    if (input.files.length <= 5) {
-    
-                        for (let i = 0; i < input.files.length; i++) {
-                            let reader = new FileReader();
-        
-                            reader.onload = e => {
-                                this.img.push(e.target.result);
-                            };
-        
-                            reader.readAsDataURL(input.files[i]);
-    
-                            Array.from(Array(e.target.files.length).keys())
-                                .map(x => {
-            
-                                    this.FormData.append('img', e.target.files[x]);
-                                });
-                        }
-                    } else {
-                        alert('You can upload up to 5 images');
-                    }
-                }
+            onCancel() {
+                console.log('on-cancel: Sucсess')
             },
+            onSuccess(res, fileItem) {
+                console.log('on-success: ', res)
+                fileItem.fileid = res.data
+            },
+            onError(res) {
+                console.log('on-error: ', res)
+            },
+            onDelete(cb) {
+                // setTimeout(() => {
+                console.log('on-delete: ', JSON.parse(JSON.stringify(this.fileList)))
+                cb && cb()
+                // }, 3000);
+            }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .formArticle{
         position: relative;
         background: #1F7B67;
         padding: 5%;
         font-size: 20px;
     }
-
-    .labelArticleForm{
-        font-size: 35px;
-        text-align: center;
+    
+    .form_row{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        span{
+            flex: 10%;
+        }
     }
+    
+    .title{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .article_category{
+        span{
+            font-size: 24px;
+        }
+    }
+    
+    .article_name{
+        span{
+            font-size: 16px;
+        }
+        input{
+            flex: 60%;
+        }
+    }
+    
+    .article_des{
+        span{
+            font-size: 16px;
+        }
+        .textarea{
+            flex: 60%;
+        }
+    }
+    
+    .article_select{
+        flex: 70% !important;
+    }
+    
+    .article_price{
+        .price{
+            flex: 60%;
+            display: flex;
+            align-items: center;
+            input{
+                flex: 30%;
+                margin-right: 10px;
+            }
+            .check{
+                flex: 70%;
+            }
+        }
+    }
+    
+    .button{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .article_btn{
+            height: 50px;
+            width: 50%;
+        }
+    }
+
+    .article_photo{
+        .photo{
+            flex: 60%;
+        }
+    }
+    
 
     #addArticle{
         margin-top: 5vh;
@@ -167,12 +220,109 @@
         height: 50px !important;
     }
 
-    .hrArticleForm{
-        background:white;
-    }
-
     .btn{
         background-color: #FF6200 !important;
         font-size: 20px;
+    }
+    
+    @media(max-width: 540px) {
+        .formArticle{
+            font-size: 16px;
+        }
+        .article_category{
+            span{
+                font-size: 18px;
+            }
+        }
+        .article_des{
+            span{
+                font-size: 14px;
+            }
+        }
+        .article_price{
+            .price{
+                flex: 60%;
+                display: flex;
+                align-items: center;
+                input{
+                    flex: 40%;
+                    margin-right: 5px;
+                }
+                .check{
+                    flex: 60%;
+                    font-size: 16px;
+                }
+            }
+        }
+        .title{
+            font-size: 18px;
+        }
+    }
+    
+    @media(max-width: 400px) {
+    
+        .form_row{
+            span{
+                flex: 10%;
+                margin-right: 5px;
+            }
+        }
+    
+        .title{
+            font-size: 20px;
+        }
+    
+        .article_category{
+            span{
+                font-size: 20px;
+            }
+        }
+    
+        .article_name{
+            span{
+                font-size: 18px;
+            }
+            input{
+                flex: 100%;
+            }
+        }
+    
+        .article_des{
+            span{
+                font-size: 18px;
+            }
+            .textarea{
+                flex: 100%;
+            }
+        }
+    
+        .article_select{
+            flex: 100% !important;
+        }
+    
+        .article_price{
+            .price{
+                flex: 100%;
+                display: flex;
+                align-items: center;
+                input{
+                    flex: 30%;
+                    margin-right: 5px;
+                }
+                .check{
+                    flex: 70%;
+                }
+            }
+        }
+    
+        .article_photo{
+            .photo{
+                flex: 100%;
+            }
+        }
+    
+        .btn{
+            font-size: 18px;
+        }
     }
 </style>

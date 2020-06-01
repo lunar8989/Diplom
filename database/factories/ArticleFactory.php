@@ -14,7 +14,7 @@ $factory->define(Article::class, function (Faker $faker) {
         'category' => Str::random(10),
         'img' => '../images/dogtest.jpg',
         'date' => $faker->date(),
-		'city' => $faker->city(),
-		'address' => $faker->address(),
+		'views' => $faker->numberBetween($min = 0, $max = 100),
+		'likes' => $faker->numberBetween($min = 0, $max = 100),
     ];
 });

@@ -8,6 +8,7 @@ import AddArticle from "./components/Articles/AddArticle";
 import ArticlePage from "./components/Articles/ArticlePage";
 import Admin from './components/Admin/Dashboard';
 import SearchPage from "./components/Articles/SearchPage";
+import Chat from "./components/Widjets/Chat";
 
 // Routes
 const routes = [
@@ -44,6 +45,14 @@ const routes = [
         path: '/article/:articleId',
         name: 'Article',
         component: ArticlePage,
+    },
+    {
+        path: '/chat/:userId',
+        name: 'Chat',
+        component: Chat,
+        meta: {
+            auth: true
+        },
     },
     {
         path: '/searchpage',

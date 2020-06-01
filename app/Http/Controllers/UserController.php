@@ -48,7 +48,7 @@ class UserController extends Controller
     	if (!$request->img){
     		return response()->json($data = false, 403);
 		}
-    	
+  
 		$img = '../storage/' . $request->file('img')->store('uploads', 'public');
 		
 		$user->update([
@@ -59,5 +59,20 @@ class UserController extends Controller
 	
 		return ($user == true) ? response()->json($data = true, 200):
 			response()->json($data = false, 403);
+	}
+	
+	public function getMessages(Request $request){
+		$messages = User::find($request->userId)->message;
+		
+		foreach ($messages as $message){
+			$author = User::find($message['author']);
+			$message['authorName'] = $author['name'];
+		}
+		
+		if (!$messages){
+			return response()->json('error', 403);
+		}
+		
+		return response()->json($messages);
 	}
 }

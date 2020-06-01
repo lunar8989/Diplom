@@ -23,8 +23,8 @@ class CreateArticlesTable extends Migration
             $table->string('img')->default('./images/noimage.png')->nullable();
             $table->date('date');
             $table->integer('user_id')->default(0);
-			$table->string('city')->default(0);
-			$table->string('address')->default('');
+			$table->integer('views')->default(0);
+			$table->integer('likes')->default(0);
 			$table->boolean('premium')->default(false);
         });
     }

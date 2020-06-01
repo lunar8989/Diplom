@@ -44,15 +44,13 @@ class ArticleController extends Controller
             'description' => 'required',
             'category' => 'required',
 			'img' => 'required',
-			'address' => 'required',
-			'city' => 'required',
         ]);
 
         if($validator->fails()) {
 			return response()->json(['message' => $validator->errors()->all()], "422");
         }
 	
-        $img = '../storage/' . $request->file('img')->store('uploads', 'public');
+        $img = '../storage/' . $request->img->store('uploads', 'public');
 	
 		$article = Article::create([
             'name' => $request->name,
@@ -61,8 +59,6 @@ class ArticleController extends Controller
             'price' => $request->price,
             'category' => $request->category,
 			'date' => Carbon::now(),
-			'address' => $request->address,
-			'city' => $request->city,
         ]);
 
         $article->user()->associate($user->id);
@@ -98,7 +94,7 @@ class ArticleController extends Controller
 	}
 	
 	public function update(Request $request){
-    	$article = Article::find($request->articleId);
+    	$article = Article::find($request->id);
 		
 		$attrs = $request->all();
 		$article->update($attrs);

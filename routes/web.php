@@ -20,7 +20,6 @@ Route::get('/', function () {
 //get items
 Route::get('api/articles/paginate', 'ArticleController@index');
 Route::get('api/articlesPremium', 'ArticleController@all');
-Route::get('api/cities', 'CityController@index');
 Route::get('api/users', 'UserController@find');
 Route::get('api/user', 'UserController@show');
 Route::get('api/categories', 'CategoriesController@index');
@@ -30,17 +29,19 @@ Route::post('api/filterArticles', 'ArticleController@filter');
 
 //articlePage
 Route::get('api/userArticle', 'ArticleController@user');
-Route::get('api/comments', 'ArticleController@comments');
 Route::get('api/articles', 'ArticleController@find');
-Route::get('api/mailSend', 'MailController@send');
 
 Route::middleware('auth:api')->group(function (){
 	Route::post('api/addArticle', 'ArticleController@create');
 	Route::post('api/addComment', 'CommentController@create');
 	Route::get('api/authUser', 'UserController@auth');
 	Route::get('api/getArticles', 'UserController@article');
+	Route::get('api/getMessages', 'UserController@getMessages');
 	Route::get('api/removeArticle', 'ArticleController@remove');
-	Route::get('api/articleUpdate', 'ArticleController@update');
+	Route::post('api/articleUpdate', 'ArticleController@update');
+	Route::post('api/messageCreate', 'MessageController@create');
+	Route::post('api/messageUpdate', 'MessageController@update');
+	Route::get('api/getMessagesForChat', 'MessageController@getMessagesForChat');
 	Route::post('api/updateUser', 'UserController@update');
 });
 

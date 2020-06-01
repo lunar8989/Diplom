@@ -26,7 +26,7 @@
                 <div class="col-12 articleTitle small">
                     <span>{{ article.name }}</span>
                     <span v-if="article.price != ''">{{ article.price }} Руб.</span>
-                    <span v-else>Цена не указана.</span>
+                    <span v-else>Даром.</span>
                 </div>
             </div>
     
@@ -40,33 +40,19 @@
                 <div class="col-12 articleCont">
                     <p><i class="fa fa-phone" aria-hidden="true"></i> {{ user.phone }}</p>
                     <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user.email }}</p>
-                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ article.city }}</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.city }}</p>
                 </div>
         
-                <div class="col-12 articleBtn">
+                <div class="col-12 articleBtn" v-if="authUser.id !== user.id">
                     <a href="#" class="btn" @click="emailModal">написать</a>
                 </div>
     
-                <b-modal id="modal-scoped" title="Форма связи с автором объявления" style="color: black">
+                <b-modal id="modal-email" title="Форма связи с автором объявления" style="color: black">
                         <b-form>
-                            <b-form-group
-                                    id="input-group-1"
-                                    label="Email:"
-                                    label-for="input-1"
-                            >
-                                <b-form-input
-                                        id="input-1"
-                                        v-model="form.email"
-                                        type="email"
-                                        required
-                                        placeholder="Введите вашу почту.."
-                                ></b-form-input>
-                            </b-form-group>
-        
                             <b-form-group id="input-group-2" label="Ваше сообщение:" label-for="input-2">
                                 <b-form-textarea
                                         id="input-2"
-                                        v-model="form.message"
+                                        v-model="form.message.message"
                                         required
                                         placeholder="Введите сообщение.."
                                 ></b-form-textarea>
@@ -74,7 +60,7 @@
                         </b-form>
         
                     <template v-slot:modal-footer="{ok}">
-                        <b-button size="sm" variant="success" @click="mailCreate">
+                        <b-button size="sm" @click="mailCreate(user.id)">
                             Отправить
                         </b-button>
                     </template>
@@ -86,32 +72,16 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-9 leftBox articleDes">
                 <nav class="desBtn col-12">
                     <a href="#tab1" class="tabs_item"><i class="fa fa-align-left" aria-hidden="true"></i> описание</a>
-<!--                    <a href="#tab2" class="tabs_item"><i class="fa fa-commenting" aria-hidden="true"></i> комментарии</a>-->
-                    <a href="#tab3" class="tabs_item"><i class="fa fa-map-marker" aria-hidden="true"></i> карта</a>
+                    <a href="#tab2" class="tabs_item"><i class="fa fa-map-marker" aria-hidden="true"></i> карта</a>
                 </nav>
         
-                <div class="des col-12" >
+                <div class="des col-12">
                     <div class="widget" id="tab1">
-                        {{ article.description }}
+                        <p>{{ article.description }}</p>
                     </div>
             
-<!--                    <div class="widget" id="tab2">-->
-<!--                        <div class="comments">-->
-<!--                            <div class="comment" v-for="(comment, index) in comments" :key="index">-->
-<!--                                {{ comment.value }}-->
-<!--                                {{ comment.date }}-->
-<!--                                {{ comment.user }}-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                -->
-<!--                       <div class="commentsBtn">-->
-<!--                          <input type="text" v-model="newComment">-->
-<!--                           <button class="comBtn" type="submit" @click="addComment">Отправить</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-            
-                    <div class="widget" id="tab3">
-                        <map-comp :city="article.city"></map-comp>
+                    <div class="widget" id="tab2">
+                        <map-comp :city="user.city" style="border: 1px solid black; height: 500px"></map-comp>
                     </div>
                 </div>
             </div>
@@ -132,37 +102,30 @@
                 article: {},
                 user: {},
                 id: null,
-                comments: {},
-                newComment: '',
+                authUser: {},
                 form: {
-                    message: '',
-                    email: '',
-                }
+                    message: {
+                        message: '',
+                        date: '',
+                        author: '',
+                    },
+                },
             }
         },
         watch: {
             $route(to, from) {
                 if(this.id !== this.$route.params.articleId){
-    
                     this.getArticle();
                 }
             }
         },
+        computed: {
+            _user() {
+                this.authUser = this.$auth.user();
+                this.form.message.author = this.authUser.name;
+            }
+        },
         methods:{
-            addComment(){
-                var data = new FormData;
-    
-                let config = {
-                    header : {
-                        'Content-Type' : 'multipart/form-data'
-                    }
-                };
-    
-                data.append('value', this.newComment);
-                data.append('article_id', this.article.id);
-    
-                axios.post('/addComment', data, config);
-            },
             getArticle(){
                 this.id = this.$route.params.articleId;
     
@@ -178,23 +141,31 @@
                         }}).then(response => {
                         this.user = response.data;
                     });
-        
-                    // axios.get('/comments',{ params: {
-                    //         articleId: this.id
-                    //     }}).then(response => {
-                    //     this.comments = response.data;
-                    // });
                 }
             },
             emailModal(){
-                this.$bvModal.show('modal-scoped');
+                this.$bvModal.show('modal-email');
             },
-            mailCreate(){
-                axios.get('/mailSend', { params: {
-                        userEmail: this.user.email,
-                        email: this.form.email,
-                        message: this.form.message,
-                    }}).then(response =>{
+            mailCreate(userId){
+                
+                let data = new FormData();
+    
+                let config = {
+                    header : {
+                        'Content-Type' : 'multipart/form-data'
+                    }
+                };
+                
+                let now = new Date();
+                
+                this.form.message.date = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate();
+                
+                data.append('message', this.form.message);
+                data.append('lastMessage', this.form.message.message);
+                data.append('user', userId);
+                
+                axios.post('/messageCreate', data, config).then(response =>{
+                    this.$bvModal.hide('modal-email');
                     this.$bvModal.msgBoxOk('Сообщение успешно отправлено', {
                         title: 'Успех',
                         size: 'sm',
@@ -213,7 +184,7 @@
                         })
                     });
                 });
-            }
+            },
         },
 
         mounted(){
@@ -315,7 +286,7 @@
     }
     
     .tabs_item{
-        flex: 0 1 33.333%;
+        flex: 0 1 50%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -357,10 +328,10 @@
     .widget{
         position: relative;
         display: none;
-        padding: 10px;
+        padding-top: 10px;
         &:before{
             content: "";
-            width: 33.333%;
+            width: 50%;
             position: absolute;}
         &:target{
             display: block;
@@ -371,11 +342,11 @@
         }
         &:nth-child(2):before{
             border-bottom: 2px solid #FF6200;
-            left: 33.333%;
-        }
-        &:nth-child(3):before{
-            border-bottom: 2px solid #FF6200;
             right: 0;
+        }
+        p{
+            font-size: 20px;
+            margin-top: 10px;
         }
     }
     

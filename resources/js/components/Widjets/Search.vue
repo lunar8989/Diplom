@@ -1,13 +1,9 @@
 <template>
-    <div class="container-fluid">
-        <div id="search" class="row">
-            <div id="searchBox" class="col-12" v-show="searchShow">
-                <input class="col-10 searchInput"  type="text" v-model="value" placeholder="Поиск..">
-                <button @click="searching" class="col-2" id="btnSearch" type="button">
-                    <img src="../../../img/search.svg" alt="">
-                </button> 
-            </div>
-        </div>
+    <div id="searchBox">
+        <input  type="text" v-on:keyup.13="checkInput" v-model="value" placeholder="Поиск.."/>
+        <button @click="searching" >
+            <i class="fa fa-search"></i>
+        </button>
     </div>
 </template>
 
@@ -21,46 +17,70 @@
             }
         },
         methods: {
-            searching: function(){
+            searching(){
                 this.$router.push({ name: 'Searching', params: { filters: { value: this.value } } });
-            }
+            },
+            checkInput(e){
+                this.$router.push({ name: 'Searching', params: { filters: { value: this.value } } });
+            },
         },
     }
 
 </script>
 
 <style scoped lang="scss">
+    
+    $size: 50px;
 
     #searchBox{
-        padding: 0;
-    }
-    
-    .searchInput{
-        height: 50px;
-        float: left;
-        border-top-left-radius: 5px !important;
-        border-bottom-left-radius: 5px !important;
-    }
-
-    .searchInput:focus{
-        outline: none;
-        border-bottom: 2px solid #FF6200;
-    }
-
-    #btnSearch{
+        display: flex;
+        background: linear-gradient(to bottom, #fff, rgba(255, 106, 0, 0.65));
+        border-radius: $size;
+        width: 60px;
         padding: 5px;
-        height: 50px;
-        background-color: #FF6200;
-        border: none;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        img{
-            width: 70%;
-            margin: auto auto;
+        transition: .4s;
+        &:hover{
+            width: 300px;
+            input{
+                width: 250px;
+                padding: 0 10px;
+            }
+            button{
+                background-color: #fff;
+            }
+        }
+        
+        input{
+            border: none;
+            background: none;
+            outline: none;
+            padding: 0;
+            font-size: 18px;
+            color: #fff;
+            width: 0;
+            transition: .4s;
+        }
+        button{
+            color: #FF6200;
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            border: none;
+            background-color: #333;
+            font-size: 20px;
+            cursor: pointer;
+            transition: .4s;
         }
     }
-
-    #btnSearch:hover{
-        background-color: gray;
+    
+    @media(max-width: 1024px) {
+        #searchBox{
+            width: 40px;
+            height: 40px;
+            button{
+                width: 30px;
+                height: 30px;
+            }
+        }
     }
 </style>

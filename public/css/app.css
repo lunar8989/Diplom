@@ -11379,7 +11379,7 @@ a.text-dark:focus {
 select.bs-select-hidden,
 .bootstrap-select > select.bs-select-hidden,
 select.selectpicker {
-  display: block !important;
+  display: none !important;
 }
 
 .bootstrap-select {
@@ -11759,6 +11759,8 @@ select.selectpicker {
   height: 1em;
   border-style: solid;
   border-width: 0 0.26em 0.26em 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }

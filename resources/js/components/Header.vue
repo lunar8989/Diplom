@@ -7,10 +7,7 @@
                 </div>
     
                 <div id="searchHeader">
-                    <search :searchShow="searchStatus"></search>
-                    <button @click="showsearch" id="btnShowSearch"  class="btn" type="button">
-                        <i class="fa fa-search fa-2x" aria-hidden="true" style="color: white;"></i>
-                    </button>
+                    <search></search>
                 </div>
     
                 <div class="header_burger" v-on:click="burger($event)">
@@ -21,7 +18,7 @@
                     <ul id="munuPos">
                         <li class="customBtn" v-if="this.user"><a @click="dashboard" style="cursor: pointer">личный кабинет</a></li>
                         <li class="customBtn"><router-link to="/login" v-if="!this.$auth.check()">вход</router-link>
-                            <a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выход</a></li>
+                            <a href="#" v-if="this.$auth.check()" @click="logout" style="cursor: pointer">выйти</a></li>
                         <li class="addArticle"><router-link to="/addarticle" id="addArticle">добавить объявление</router-link></li>
                     </ul>
                 </div>
@@ -32,7 +29,7 @@
 
 <script>
     import search from './Widjets/Search.vue';
-
+    
     export default {
 
         components: {
@@ -40,7 +37,7 @@
         },
         data(){
             return {
-                searchStatus: false,
+                searchStatus: true,
                 user: {},
                 userSuccess: false,
             }
@@ -53,18 +50,15 @@
                 this.userSuccess = true;
             }
         },
+        
         methods: {
-            showsearch() {
-                document.getElementById('searchBox').style.display = "";
-                document.getElementById('btnShowSearch').style.display = "none";
-                this.searchStatus = true;
-            },
 
             logout() {
                 this.$auth.logout({
                     makeRequest: true,
                     success() {
                         console.log('success ' + this.context);
+                        location.reload();
                     },
                     error() {
                         console.log('error ' + this.context);

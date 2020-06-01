@@ -20,6 +20,14 @@
                                 <input type="text" id="phone" class="form-control" placeholder="Телефон" v-model="phone">
                                 <span class="help-block" v-if="has_error && errors.phone">{{ errors.phone }}</span>
                             </div>
+                            <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.name }">
+                                <label for="name">Город</label>
+                                <select-comp
+                                        id="city"
+                                        v-model="city"
+                                        :data="cities">
+                                </select-comp>
+                            </div>
                             <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
                                 <label for="email">E-mail</label>
                                 <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email">
@@ -45,14 +53,18 @@
 </template>
 
 <script>
+    let cities = require('../../cities');
+    
     export default {
         name: "register",
         data() {
             return {
+                cities: cities,
                 name: '',
                 email: '',
                 phone: '',
                 password: '',
+                city: '',
                 password_confirmation: '',
                 has_error: false,
                 error: '',
@@ -69,6 +81,7 @@
                         email: app.email,
                         phone: app.phone,
                         password: app.password,
+                        city: app.city,
                         password_confirmation: app.password_confirmation
                     },
                     success: function () {

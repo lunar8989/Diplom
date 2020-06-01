@@ -14,8 +14,22 @@
             <div class="col-12">
                 <div id="settingsBarHeader" class="container ">
                     <div class="row no-gutters" style="padding: 2%">
-                        <div class="col-12 col-md-4 itemMenu"><select-comp v-model="search.category" :data="categories"></select-comp></div>
-                        <div class="col-12 col-md-4 itemMenu"><select-comp v-model="search.city" :data="cities"></select-comp></div>
+                        <div class="col-12 col-md-4 itemMenu">
+                            <select-comp
+                                    class="search_select"
+                                    v-model="search.category"
+                                    :data="categories"
+                                    placeholder="выберите категорию"
+                            ></select-comp>
+                        </div>
+                        <div class="col-12 col-md-4 itemMenu">
+                            <select-comp
+                                    class="search_select"
+                                    v-model="search.city"
+                                    :data="cities"
+                                    placeholder="выберите город"
+                            ></select-comp>
+                        </div>
                         <div id="searchBox" class="col-12 col-md-4">
                             <input class="col-10 searchInput"  type="text" v-model="search.value" placeholder="Поиск..">
                             <button @click="searching" class="col-2" id="btnSearch" type="button">
@@ -32,15 +46,15 @@
                         <div class="col-md-1"></div>
                         <div v-for="cat in categories" :key="cat.id" v-if="cat.id < 5" class="col-md-2 category large">
                             <router-link :to="{ name: 'Searching', params: { filters: { category:  [cat.name], value: '', city: '' }}}"><img :src=cat.img /></router-link>
-                            <p>{{ cat.name }}</p>
+                            <br><span class="category_name">{{ cat.name }}</span>
                         </div>
                         <div v-for="cat in categories" :key="cat.id+5" v-if="cat.id < 3" class="col-sm-4 category small">
                             <router-link :to="{ name: 'Searching', params: { filters: { category:  [cat.name], value: '', city: '' }}}"><img :src=cat.img /></router-link>
-                            <p>{{ cat.name }}</p>
+                            <br><span class="category_name">{{ cat.name }}</span>
                         </div>
                         <div class="col-sm-4 col-md-2 category">
                             <router-link :to="{ name: 'Dashboard', params: { userId: this.user.id } }"><img src="../../img/profile.svg"></router-link>
-                            <p>личный кабинет</p>
+                            <br><span class="category_name">личный кабинет</span>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -55,7 +69,7 @@
 
         <div class="row board">
             <h1 class="sliderPremiumTitle">Последние объявления</h1>
-            <board :filters="this.filter"></board>
+            <board :filters="this.filter" :column="this.column"></board>
         </div>
         
         <div class="row map">
@@ -94,7 +108,8 @@
                     category: [],
                     city: '',
                     value: '',
-                }
+                },
+                column: true,
             }
         },
         
@@ -170,6 +185,11 @@
         &.small{
             display: none;
         }
+    }
+    
+    .category_name{
+        width: 100%;
+        font-size: 16px;
     }
 
     .sliderPremium{

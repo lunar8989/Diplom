@@ -30,6 +30,15 @@
                 this.createdMap(myCity);
             }
         },
+        watch:{
+            $route(to, from) {
+                if(this.cityMap !== this.$props.city){
+                    let myCity = this.getCity();
+    
+                    this.createdMap(myCity);
+                }
+            }
+        },
         methods:{
             getCity(){
                 this.cityMap = this.city;

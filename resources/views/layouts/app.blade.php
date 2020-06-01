@@ -74,21 +74,31 @@
             background-color: #FF6200 !important;
             color: white !important;
         }
+        
+        .vux-uploader_input-box{
+            margin-top: -13px;
+        }
 
         .page-link {
             color: #FF6200 !important;
         }
 
-        .dropdown-toggle{
-            height: 50px !important;
-        }
-
-        .bootstrap-select{
+        .btn{
             padding: 0 !important;
         }
+        
+        .bootstrap-select{
+            padding: 0 !important;
+            
+        }
 
-        .btn-lg{
-            padding: 6px 12px;
+        .bootstrap-select > .dropdown-toggle.bs-placeholder{
+            height: 50px !important;
+            padding: 5px !important;
+        }
+
+        .bootstrap-select .dropdown-menu{
+            font-size: 16px;
         }
 
         .btn-warning{
@@ -97,6 +107,11 @@
             border-radius: 10px;
             width: 100%;
             padding: 0 !important;
+        }
+
+        .btn-warning:hover, .btn-warning:focus{
+            background-color: #FFFF74;
+            border: 1px solid black;
         }
 
         .dropdown-menu{

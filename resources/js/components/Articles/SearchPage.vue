@@ -22,7 +22,7 @@
                 </div>
                 <div class="filCities">
                     <label>Город</label>
-                    <select-comp v-model="filter.city" :data="cities"></select-comp>
+                    <select-comp v-model="filter.city" placeholder="выберите город" :data="cities"></select-comp>
                 </div>
             </div>
             
@@ -84,7 +84,7 @@
             </div>
             
             <div class="col-12 col-lg-10" id="boardMain">
-                <board :filters="this.filter"></board>
+                <board :filters="this.filter" :column="this.column"></board>
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@
 
 <script>
     import board from '../Articles/Board';
-    var cities = require('../../cities');
+    let cities = require('../../cities');
     
     export default {
         components:{
@@ -110,6 +110,7 @@
                     city: '',
                     value: '',
                 },
+                column: false,
                 articles: {},
             }
         },

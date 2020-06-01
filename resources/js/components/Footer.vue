@@ -1,7 +1,7 @@
 <template>
     <div id="footer">
         <div id="copyright">
-            <span>©2019. Все права защищены. ООО"Дай-Лапу"</span>
+            <span>©2020. Все права защищены. ООО"Дай-Лапу"</span>
         </div>
         <div class="contact">
             <span>Контакты: <a href="tel: +79507907366" style="white-space: nowrap">+7(950)790-73-66</a></span>

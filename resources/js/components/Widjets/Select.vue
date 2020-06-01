@@ -1,17 +1,16 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 0;">
         <div class="row form-group" style="height: 50px; margin: 0;">
-            <select  class="selectpicker mySelect col-12 " data-title="выберите из списка" data-size="5" data-live-search="true" v-model="selected" style="height: 50px">
+            <select  class="selectpicker mySelect col-12 " :data-title=this.placeholder data-size="5" data-live-search="true" v-model="selected" style="height: 50px">
                 <option class="myOption" v-for="item in data" :key="item.id" :value=item.name>{{ item.name }}</option>
             </select>
-        
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['value', 'data'],
+        props: ['value', 'data', 'placeholder'],
         data() {
             return{
             
